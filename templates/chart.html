@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yahoo Finance Style Chart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333333;
+        }
+        
+        .chart-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            position: relative;
+            width: 100%;
+        }
+        
+        .chart-header {
+            margin-bottom: 15px;
+        }
+        
+        .chart-title {
+            color: #333333;
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+        
+        .chart-subtitle {
+            color: #555555;
+            font-size: 0.9rem;
+        }
+        
+        .current-price-large {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333333;
+        }
+        
+        .price-change-header {
+            font-size: 1.1rem;
+            margin-right: 15px;
+        }
+        
+        .market-status {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .time-controls {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 15px;
+        }
+        
+        .time-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .time-button {
+            background: transparent;
+            border: none;
+            color: #777;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .time-button.active {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333333;
+        }
+        
+        .time-button:hover {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333333;
+        }
+        
+        .chart-options {
+            margin-left: auto;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .chart-type-button {
+            background: transparent;
+            border: none;
+            color: #777;
+            padding: 5px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .positive {
+            color: #2ecc71;
+        }
+        
+        .negative {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="chart-container">
+            <!-- Chart Header -->
+            <div class="chart-header">
+                <div class="d-flex justify-content-between mb-2">
+                    <div>
+                        <h2 class="chart-title">XAUUSD (Gold)</h2>
+                        <div class="chart-subtitle">Real-time chart</div>
+                    </div>
+                    <div class="text-end">
+                        <div class="current-price-large" id="currentPrice">$3392.45</div>
+                        <div class="d-flex align-items-center">
+                            <div class="price-change-header positive" id="priceChange">+12.35 (0.36%)</div>
+                            <div class="market-status" id="marketStatus">Market Open • 10:53 AM EDT</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Time Period Controls -->
+            <div class="time-controls">
+                <div class="time-buttons">
+                    <button class="time-button" data-period="1D">1D</button>
+                    <button class="time-button" data-period="5D">5D</button>
+                    <button class="time-button active" data-period="1M">1M</button>
+                    <button class="time-button" data-period="6M">6M</button>
+                    <button class="time-button" data-period="YTD">YTD</button>
+                    <button class="time-button" data-period="1Y">1Y</button>
+                    <button class="time-button" data-period="5Y">5Y</button>
+                    <button class="time-button" data-period="ALL">ALL</button>
+                </div>
+                
+                <div class="chart-options">
+                    <label class="toggle-container">
+                        <input type="checkbox" id="compareToggle">
+                        <span class="ms-1">Compare</span>
+                    </label>
+                    
+                    <div class="dropdown">
+                        <button class="chart-type-button" id="chartTypeButton">
+                            <span id="chartTypeText">Mountain</span>
+                            <span>▼</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chart Canvas -->
+            <div style="height: 400px; position: relative;">
+                <canvas id="priceChart"></canvas>
+            </div>
+            
+            <div id="chartMessage" class="mt-2 text-center text-muted small"></div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            let priceChart;
+            
+            // Generate sample data for each time period
+            const timePeriodsData = {
+                '1D': generateTimeData('1D'),
+                '5D': generateTimeData('5D'),
+                '1M': generateTimeData('1M'),
+                '6M': generateTimeData('6M'),
+                'YTD': generateTimeData('YTD'),
+                '1Y': generateTimeData('1Y'),
+                '5Y': generateTimeData('5Y'),
+                'ALL': generateTimeData('ALL')
+            };
+            
+            // Function to generate data for different time periods
+            function generateTimeData(period) {
+                const now = new Date();
+                let data = [];
+                
+                if (period === '1D') {
+                    // Hourly data for last 24 hours
+                    for (let i = 0; i < 24; i++) {
+                        const date = new Date(now);
+                        date.setHours(now.getHours() - 24 + i);
+                        date.setMinutes(0);
+                        date.setSeconds(0);
+                        data.push({
+                            x: date,
+                            y: 3300 + Math.random() * 100
+                        });
+                    }
+                } else if (period === '5D') {
+                    // Daily data for last 5 days
+                    for (let i = 0; i < 5; i++) {
+                        const date = new Date(now);
+                        date.setDate(now.getDate() - 5 + i);
+                        data.push({
+                            x: date,
+                            y: 3300 + Math.random() * 100
+                        });
+                    }
+                } else if (period === '1M') {
+                    // Daily data for last 30 days
+                    for (let i = 0; i < 30; i++) {
+                        const date = new Date(now);
+                        date.setDate(now.getDate() - 30 + i);
+                        data.push({
+                            x: date,
+                            y: 3200 + Math.random() * 200
+                        });
+                    }
+                } else if (period === '6M') {
+                    // Monthly data for last 6 months
+                    for (let i = 0; i < 6; i++) {
+                        const date = new Date(now);
+                        date.setMonth(now.getMonth() - 6 + i);
+                        data.push({
+                            x: date,
+                            y: 3100 + Math.random() * 300
+                        });
+                    }
+                } else if (period === 'YTD') {
+                    // Monthly data since start of year
+                    const startOfYear = new Date(now.getFullYear(), 0, 1);
+                    const monthsElapsed = now.getMonth() + 1;
+                    for (let i = 0; i < monthsElapsed; i++) {
+                        const date = new Date(now.getFullYear(), i, 1);
+                        data.push({
+                            x: date,
+                            y: 3000 + Math.random() * 400
+                        });
+                    }
+                } else if (period === '1Y') {
+                    // Monthly data for last year
+                    for (let i = 0; i < 12; i++) {
+                        const date = new Date(now);
+                        date.setMonth(now.getMonth() - 12 + i);
+                        data.push({
+                            x: date,
+                            y: 2900 + Math.random() * 500
+                        });
+                    }
+                } else if (period === '5Y') {
+                    // Yearly data for last 5 years
+                    for (let i = 0; i < 5; i++) {
+                        const date = new Date(now);
+                        date.setFullYear(now.getFullYear() - 5 + i);
+                        data.push({
+                            x: date,
+                            y: 2000 + Math.random() * 1500
+                        });
+                    }
+                } else if (period === 'ALL') {
+                    // 10 years of data
+                    for (let i = 0; i < 10; i++) {
+                        const date = new Date(now);
+                        date.setFullYear(now.getFullYear() - 10 + i);
+                        data.push({
+                            x: date,
+                            y: 1500 + Math.random() * 2000
+                        });
+                    }
+                }
+                
+                // Sort by date
+                return data.sort((a, b) => a.x - b.x);
+            }
+            
+            // Initialize with 1M data
+            updateChart(timePeriodsData['1M'], 'day');
+            
+            // Update chart with specific data and time unit
+            function updateChart(data, timeUnit) {
+                // Calculate if trend is positive or negative
+                const isPositive = data.length >= 2 ? 
+                    data[data.length-1].y >= data[0].y : true;
+                
+                // Set colors based on price direction
+                const lineColor = isPositive ? '#2ecc71' : '#e74c3c';
+                const areaColor = isPositive ? 
+                    'rgba(46, 204, 113, 0.1)' : 
+                    'rgba(231, 76, 60, 0.1)';
+                
+                // Create new chart or update existing one
+                if (priceChart) {
+                    priceChart.data.datasets[0].data = data;
+                    priceChart.data.datasets[0].borderColor = lineColor;
+                    priceChart.data.datasets[0].backgroundColor = areaColor;
+                    priceChart.options.scales.x.time.unit = timeUnit;
+                    priceChart.update();
+                } else {
+                    // Create new chart
+                    priceChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            datasets: [{
+                                label: 'XAUUSD Price',
+                                data: data,
+                                borderColor: lineColor,
+                                backgroundColor: areaColor,
+                                borderWidth: 2,
+                                pointRadius: 0,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: lineColor,
+                                pointHoverBorderColor: '#fff',
+                                pointHoverBorderWidth: 2,
+                                tension: 0.1,
+                                fill: 'origin'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            interaction: {
+                                intersect: false,
+                                mode: 'index'
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    mode: 'index',
+                                    intersect: false,
+                                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                                    titleColor: '#333',
+                                    bodyColor: '#333',
+                                    borderColor: 'rgba(200, 200, 200, 0.8)',
+                                    borderWidth: 1,
+                                    padding: 10,
+                                    cornerRadius: 4,
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `XAUUSD: $${context.parsed.y.toFixed(2)}`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    type: 'time',
+                                    time: {
+                                        unit: timeUnit,
+                                        displayFormats: {
+                                            hour: 'HH:mm',
+                                            day: 'MMM d',
+                                            month: 'MMM yyyy',
+                                            year: 'yyyy'
+                                        },
+                                        tooltipFormat: 'MMM d, yyyy'
+                                    },
+                                    grid: {
+                                        display: true,
+                                        color: 'rgba(200, 200, 200, 0.5)',
+                                        drawBorder: false
+                                    },
+                                    ticks: {
+                                        color: '#555',
+                                        font: {
+                                            size: 10
+                                        },
+                                        maxRotation: 0,
+                                        autoSkip: true,
+                                        maxTicksLimit: 8
+                                    },
+                                    border: {
+                                        display: false
+                                    }
+                                },
+                                y: {
+                                    grid: {
+                                        color: 'rgba(200, 200, 200, 0.5)',
+                                        drawBorder: false
+                                    },
+                                    position: 'right',
+                                    ticks: {
+                                        color: '#555',
+                                        font: {
+                                            size: 10
+                                        },
+                                        callback: function(value) {
+                                            return '$' + value.toLocaleString();
+                                        }
+                                    },
+                                    border: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Update price display
+                updatePriceDisplay(data);
+            }
+            
+            // Update the price display with the latest data
+            function updatePriceDisplay(data) {
+                if (data.length === 0) return;
+                
+                const latestPrice = data[data.length-1].y.toFixed(2);
+                const firstPrice = data[0].y;
+                const priceChange = (data[data.length-1].y - firstPrice).toFixed(2);
+                const percentChange = ((priceChange / firstPrice) * 100).toFixed(2);
+                
+                document.getElementById('currentPrice').textContent = `$${latestPrice}`;
+                
+                const changeElement = document.getElementById('priceChange');
+                changeElement.textContent = `${priceChange >= 0 ? '+' : ''}${priceChange} (${percentChange}%)`;
+                changeElement.className = 'price-change-header';
+                changeElement.classList.add(priceChange >= 0 ? 'positive' : 'negative');
+                
+                // Update market status with current time
+                const now = new Date();
+                const options = { hour: 'numeric', minute: 'numeric', hour12: true, timeZoneName: 'short' };
+                const timeString = now.toLocaleTimeString('en-US', options);
+                document.getElementById('marketStatus').textContent = `Market Open • ${timeString}`;
+            }
+            
+            // Add message to chart
+            function updateChartMessage(message) {
+                document.getElementById('chartMessage').textContent = message;
+            }
+            
+            // Add event listeners to time period buttons
+            document.querySelectorAll('.time-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.time-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get the time period
+                    const period = this.getAttribute('data-period');
+                    
+                    // Set appropriate time unit based on period
+                    let timeUnit = 'day';
+                    if (period === '1D') {
+                        timeUnit = 'hour';
+                    } else if (period === '5D' || period === '1M') {
+                        timeUnit = 'day';
+                    } else if (period === '6M' || period === 'YTD' || period === '1Y') {
+                        timeUnit = 'month';
+                    } else {
+                        timeUnit = 'year';
+                    }
+                    
+                    // Update chart with data for this period
+                    updateChart(timePeriodsData[period], timeUnit);
+                    
+                    // Show message about the time period
+                    updateChartMessage(`${period} view selected - showing ${timePeriodsData[period].length} data points`);
+                });
+            });
+            
+            // Toggle between mountain/line chart
+            document.getElementById('chartTypeButton').addEventListener('click', function() {
+                const currentType = priceChart.config.type;
+                const newType = currentType === 'line' ? 'area' : 'line';
+                
+                if (priceChart) {
+                    priceChart.config.type = newType === 'area' ? 'line' : newType;
+                    priceChart.data.datasets[0].fill = newType === 'area' ? 'origin' : false;
+                    priceChart.update();
+                    
+                    document.getElementById('chartTypeText').textContent = newType === 'area' ? 'Mountain' : 'Line';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom gold gradient styles */
+.gold-gradient {
+  background: linear-gradient(135deg, #DAA520 0%, #F5D76E 50%, #B8860B 100%);
+}
+
+.card-gold {
+  @apply border border-gold/20 shadow-lg overflow-hidden;
+}
+
+.card-gold:hover {
+  @apply border-gold/40 shadow-xl;
+}
+
+/* Price movement indicators */
+.price-up {
+  @apply text-green-600;
+}
+
+.price-down {
+  @apply text-red-600;
+}
+
+/* Animation speeds */
+.animate-delayed {
+  animation-delay: 0.3s;
+}
+
+/* Fixed navbar when scrolling */
+.navbar-fixed {
+  @apply fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-sm shadow-md;
+}

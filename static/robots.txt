@@ -1,0 +1,16 @@
+# robots.txt for Gold Price Tracker
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /faq
+Allow: /privacy
+Allow: /terms
+Allow: /static/
+
+# Disallow any potential admin or development paths
+Disallow: /admin/
+Disallow: /dev/
+Disallow: /test/
+
+# Sitemap location
+Sitemap: https://gold-tracker-656887009827.us-central1.run.app/sitemap.xml
