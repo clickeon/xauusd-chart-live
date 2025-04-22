@@ -1,0 +1,26 @@
+[build]
+  command = "npm install && npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Redirect all routes to index.html for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Environment variables configuration
+[build.environment]
+  # The API URL will be set in the Netlify dashboard
+  VITE_API_URL = "https://xauusd-api.herokuapp.com"
+
+# Security headers for public usage
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://xauusd-api.herokuapp.com;"
+    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Base URL for the API - configured to work with both development and production
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? '' 
+  ? import.meta.env.VITE_API_URL || 'https://xauusd-api.herokuapp.com' 
   : 'http://localhost:8080';
 
 // Create axios instance with default config
