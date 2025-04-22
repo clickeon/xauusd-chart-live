@@ -49,9 +49,9 @@ const SignalIndicator = () => {
   useEffect(() => {
     const fetchSignals = async () => {
       try {
-        const data = await goldApi.getSignals();
-        if (data && data.signals && data.signals.length > 0) {
-          setSignals(data.signals);
+        const signals = await goldApi.getTradingSignals();
+        if (signals && signals.length > 0) {
+          setSignals(signals);
           setError(null);
         } else {
           console.warn('Invalid or empty signal data format, using fallback');
