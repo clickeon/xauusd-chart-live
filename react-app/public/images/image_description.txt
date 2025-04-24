@@ -1,0 +1,12 @@
+Social Media Preview Image Required
+
+A professional image showing a gold price chart with the text "XAUUSD CHART LIVE" prominently displayed.
+
+Image Requirements:
+- Size: 1200x630 pixels (optimal for social sharing)
+- Format: JPEG or PNG
+- Contents: Gold price chart showing upward trend
+- Text: "XAUUSD CHART LIVE" in large, clear font
+- Colors: Professional color scheme with gold/yellow accents
+
+This image should be named "gold-chart-preview.jpg" and placed in this directory.
