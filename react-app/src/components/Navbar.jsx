@@ -31,11 +31,11 @@ const Navbar = () => {
           
           <nav className="hidden md:flex items-center space-x-6">
             <a href="/" className="text-navy-light hover:text-gold transition-colors">Home</a>
-            <a href="/charts" className="text-navy-light hover:text-gold transition-colors">Charts</a>
-            <a href="/signals" className="text-navy-light hover:text-gold transition-colors">Signals</a>
-            <a href="/news" className="text-navy-light hover:text-gold transition-colors">News</a>
-            <a href="/analysis" className="text-navy-light hover:text-gold transition-colors">Analysis</a>
-            <a href="/about" className="text-navy-light hover:text-gold transition-colors">About</a>
+            <a href="/charts.html" className="text-navy-light hover:text-gold transition-colors">Gold Charts</a>
+            <a href="/signals.html" className="text-navy-light hover:text-gold transition-colors">Trading Signals</a>
+            <a href="/news.html" className="text-navy-light hover:text-gold transition-colors">Gold News</a>
+            <a href="/analysis.html" className="text-navy-light hover:text-gold transition-colors">Market Analysis</a>
+            <a href="/about.html" className="text-navy-light hover:text-gold transition-colors">About Us</a>
             <a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-navy-light hover:text-gold transition-colors">Trade Gold</a>
           </nav>
           
