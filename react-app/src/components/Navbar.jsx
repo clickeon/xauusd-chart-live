@@ -14,6 +14,15 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Scroll to section handler
+  const scrollToSection = (sectionId, e) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className={`py-4 transition-all duration-300 ease-in-out ${
       isScrolled ? 'navbar-fixed' : 'bg-white'
@@ -21,7 +30,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2">
+            <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="flex items-center space-x-2" title="XAUUSD Chart Live Home">
               <span className="gold-gradient rounded-md h-8 w-8 flex items-center justify-center">
                 <span className="text-white font-bold">XAU</span>
               </span>
@@ -30,13 +39,13 @@ const Navbar = () => {
           </div>
           
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="/" className="text-navy-light hover:text-gold transition-colors">Home</a>
-            <a href="/charts.html" className="text-navy-light hover:text-gold transition-colors">Gold Charts</a>
-            <a href="/signals.html" className="text-navy-light hover:text-gold transition-colors">Trading Signals</a>
-            <a href="/news.html" className="text-navy-light hover:text-gold transition-colors">Gold News</a>
-            <a href="/analysis.html" className="text-navy-light hover:text-gold transition-colors">Market Analysis</a>
-            <a href="/about.html" className="text-navy-light hover:text-gold transition-colors">About Us</a>
-            <a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-navy-light hover:text-gold transition-colors">Trade Gold</a>
+            <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Price Home">Home</a>
+            <a href="#chart" onClick={(e) => scrollToSection('chart', e)} className="text-navy-light hover:text-gold transition-colors" title="Live Gold Charts">Gold Charts</a>
+            <a href="#signals" onClick={(e) => scrollToSection('signals', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Trading Signals">Trading Signals</a>
+            <a href="#news" onClick={(e) => scrollToSection('news', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Market News">Gold News</a>
+            <a href="#" className="text-navy-light hover:text-gold transition-colors" title="Gold Market Analysis">Market Analysis</a>
+            <a href="#footer" onClick={(e) => scrollToSection('footer', e)} className="text-navy-light hover:text-gold transition-colors" title="About XAUUSD Chart Live">About Us</a>
+            <a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-navy-light hover:text-gold transition-colors" title="Trade Gold Online">Trade Gold</a>
           </nav>
           
           <div className="flex items-center space-x-4">
