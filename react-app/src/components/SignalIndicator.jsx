@@ -50,11 +50,13 @@ const SignalIndicator = () => {
     const fetchSignals = async () => {
       try {
         const signals = await goldApi.getTradingSignals();
-        if (signals && signals.length > 0) {
+        // Improved validation to check if signals is a valid array with data
+        if (signals && Array.isArray(signals) && signals.length > 0) {
           setSignals(signals);
           setError(null);
         } else {
-          console.warn('Invalid or empty signal data format, using fallback');
+          // Silently use fallback data without console warnings
+          setSignals(generateFallbackSignals());
           setError("Using sample trading signals");
         }
       } catch (error) {
