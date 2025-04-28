@@ -63,31 +63,31 @@ const generateFallbackHistoricalPrices = (period = '1M') => {
 const generateFallbackSignals = () => {
   return [
     {
-      type: 'RSI',
-      signal: Math.random() > 0.5 ? 'buy' : 'sell',
-      strength: 'strong',
-      description: Math.random() > 0.5 
-        ? 'RSI is oversold at 29.45' 
-        : 'RSI is overbought at 71.23',
-      timestamp: new Date().toISOString()
+      type: "buy",
+      strength: 4,
+      timeframe: "short-term (1-5 days)",
+      reason: "Golden cross on 4H chart, RSI showing oversold conditions",
+      price: 2302.45,
+      target: 2320.00,
+      stopLoss: 2290.00
     },
     {
-      type: 'SMA Crossover',
-      signal: Math.random() > 0.5 ? 'buy' : 'sell',
-      strength: 'medium',
-      description: Math.random() > 0.5 
-        ? '20-day SMA crossed above 50-day SMA' 
-        : '20-day SMA crossed below 50-day SMA',
-      timestamp: new Date().toISOString()
+      type: "hold",
+      strength: 3,
+      timeframe: "medium-term (1-2 weeks)",
+      reason: "Price consolidating near previous resistance, waiting for breakout confirmation",
+      price: 2302.45,
+      target: 2325.00,
+      stopLoss: 2285.00
     },
     {
-      type: 'Price Action',
-      signal: Math.random() > 0.3 ? 'buy' : 'sell',
-      strength: 'weak',
-      description: Math.random() > 0.5 
-        ? 'Price rose 1.42% in the last 5 periods' 
-        : 'Price fell 1.38% in the last 5 periods',
-      timestamp: new Date().toISOString()
+      type: "sell",
+      strength: 2,
+      timeframe: "short-term (1-5 days)",
+      reason: "Short-term overbought on hourly chart, potential pullback expected",
+      price: 2302.45,
+      target: 2295.00,
+      stopLoss: 2310.00
     }
   ];
 };
