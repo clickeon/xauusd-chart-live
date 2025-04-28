@@ -24,6 +24,7 @@ const NewsSection = () => {
       setLoading(true);
       try {
         const data = await goldApi.getNews();
+<<<<<<< HEAD
         console.log('Received news data:', data); // Debug log
         if (data && data.news && data.news.length > 0) {
           // Ensure all required fields are strings
@@ -42,6 +43,10 @@ const NewsSection = () => {
           }));
           console.log('Processed news data:', processedNews); // Debug log
           setNews(processedNews);
+=======
+        if (data && data.news && data.news.length > 0) {
+          setNews(data.news);
+>>>>>>> 34ee5c60d49b89439745ac993e9de30c056ff51d
           setError(null);
         } else {
           console.warn('Invalid or empty news data format, using fallback');
@@ -83,6 +88,7 @@ const NewsSection = () => {
 
   // Helper function to get badge color based on impact
   const getImpactColor = (impact) => {
+<<<<<<< HEAD
     // Debug logging
     console.log('Impact value:', impact, 'Type:', typeof impact);
     
@@ -93,6 +99,9 @@ const NewsSection = () => {
     
     const impactValue = impact.toLowerCase();
     switch (impactValue) {
+=======
+    switch (impact?.toLowerCase()) {
+>>>>>>> 34ee5c60d49b89439745ac993e9de30c056ff51d
       case "high":
         return "bg-red-100 text-red-800";
       case "medium":
@@ -182,9 +191,13 @@ const NewsSection = () => {
                           className="hover:text-navy-light transition-colors"
                         >
                           {item.title}
+<<<<<<< HEAD
                           <p className="text-sm text-gray-500 mt-1 font-normal">
                             {item.summary}
                           </p>
+=======
+                          <p className="text-sm text-gray-500 mt-1 font-normal">{item.summary}</p>
+>>>>>>> 34ee5c60d49b89439745ac993e9de30c056ff51d
                         </a>
                       </TableCell>
                       <TableCell>{item.source}</TableCell>

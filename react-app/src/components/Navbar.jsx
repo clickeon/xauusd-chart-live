@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Add scroll event listener to apply fixed navbar when scrolled
+  // Add scroll event listener to apply fixed navbar when scrolled.
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
