@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const AhrefsAnalytics = () => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [scriptError, setScriptError] = useState(false);
-
+// test
   useEffect(() => {
     // Skip analytics in development mode to prevent console warnings
     const isDevelopment = window.location.hostname === 'localhost' || 
