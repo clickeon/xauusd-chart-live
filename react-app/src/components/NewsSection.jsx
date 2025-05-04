@@ -288,6 +288,43 @@ const NewsSection = () => {
               </TableBody>
             </Table>
           </div>
+          
+          {/* Related Resources Section with External Links */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <h3 className="text-lg font-semibold text-navy mb-4">Related Gold Market Resources</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
+                <CardContent className="p-4">
+                  <h4 className="font-medium text-navy mb-2">Market Data</h4>
+                  <ul className="space-y-2 text-sm">
+                    <li><a href="https://www.kitco.com/market/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Kitco Market Data</a></li>
+                    <li><a href="https://www.investing.com/commodities/gold-historical-data" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Investing.com Historical Data</a></li>
+                    <li><a href="https://www.gold.org/goldhub/data/gold-prices" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">World Gold Council Prices</a></li>
+                  </ul>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4">
+                  <h4 className="font-medium text-navy mb-2">Analysis & Research</h4>
+                  <ul className="space-y-2 text-sm">
+                    <li><a href="https://www.gold.org/goldhub/research" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">World Gold Council Research</a></li>
+                    <li><a href="https://www.tradingview.com/ideas/gold/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">TradingView Gold Ideas</a></li>
+                    <li><a href="https://www.forexlive.com/tag/gold/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ForexLive Gold Analysis</a></li>
+                  </ul>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4">
+                  <h4 className="font-medium text-navy mb-2">Trading Resources</h4>
+                  <ul className="space-y-2 text-sm">
+                    <li><a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Trade Gold Online</a></li>
+                    <li><a href="https://www.babypips.com/learn/forex/gold-trading" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">BabyPips Gold Trading Guide</a></li>
+                    <li><a href="https://www.dailyfx.com/gold-price" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">DailyFX Gold Trading</a></li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </CardContent>
       </Card>
       

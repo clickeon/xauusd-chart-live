@@ -3,6 +3,25 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# Force HTTPS and redirect www to non-www
+[[redirects]]
+  from = "http://xauusd-chart-live.com/*"
+  to = "https://xauusd-chart-live.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.xauusd-chart-live.com/*"
+  to = "https://xauusd-chart-live.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.xauusd-chart-live.com/*"
+  to = "https://xauusd-chart-live.com/:splat"
+  status = 301
+  force = true
+
 # Redirect all routes to index.html for client-side routing
 [[redirects]]
   from = "/*"
@@ -24,3 +43,4 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' analytics.ahrefs.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://xauusd-api.herokuapp.com analytics.ahrefs.com;"
     Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
+    Link = "<https://xauusd-chart-live.com>; rel=\"canonical\""

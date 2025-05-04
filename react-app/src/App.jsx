@@ -10,6 +10,7 @@ import SignalIndicator from './components/SignalIndicator';
 import NewsSection from './components/NewsSection';
 import Footer from './components/Footer';
 import AhrefsAnalytics from './components/AhrefsAnalytics';
+import SEOLinks from './components/SEOLinks';
 
 // API
 import { goldApi } from './api/goldApi';
@@ -125,6 +126,7 @@ function App() {
           <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
         </Helmet>
 
+        <SEOLinks />
         <Navbar />
 
         <main>
