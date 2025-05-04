@@ -29,6 +29,9 @@ const SEOLinks = () => {
             <li><a href="https://lnk.brokerinspect.com/trade-gold" rel="noopener noreferrer" target="_blank" title="Trade Gold Online" className="hover:text-gold transition-colors">Trade Gold</a></li>
             <li><a href="https://www.investing.com/commodities/gold" rel="noopener noreferrer" target="_blank" title="Gold on Investing.com" className="hover:text-gold transition-colors">Investing.com Gold</a></li>
             <li><a href="https://www.kitco.com/charts/livegold.html" rel="noopener noreferrer" target="_blank" title="Kitco Gold Charts" className="hover:text-gold transition-colors">Kitco Charts</a></li>
+            <li><a href="https://www.reuters.com/markets/commodities/gold/" rel="noopener noreferrer" target="_blank" title="Reuters Gold News" className="hover:text-gold transition-colors">Reuters Gold</a></li>
+            <li><a href="https://www.lbma.org.uk/prices-and-data/precious-metal-prices" rel="noopener noreferrer" target="_blank" title="LBMA Gold Prices" className="hover:text-gold transition-colors">LBMA Prices</a></li>
+            <li><a href="https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm" rel="noopener noreferrer" target="_blank" title="CFTC Gold Reports" className="hover:text-gold transition-colors">CFTC Reports</a></li>
           </ul>
         </nav>
       </div>

@@ -15,6 +15,11 @@ import SEOLinks from './components/SEOLinks';
 // API
 import { goldApi } from './api/goldApi';
 
+/**
+ * Main App component for XAUUSD Chart Live
+ * Updated with additional SEO improvements and external links
+ * Version 0.1.1 - May 2025
+ */
 function App() {
   // State for gold price data
   const [priceData, setPriceData] = useState({
