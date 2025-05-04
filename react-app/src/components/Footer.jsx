@@ -34,6 +34,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Charts Links</h3>
             <ul className="space-y-2 text-gray-300">
+              <li><a href="/" className="hover:text-gold transition-colors" title="XAUUSD Chart Live Home">Home</a></li>
               <li><a href="/charts" className="hover:text-gold transition-colors" title="Live Gold Chart">Gold Chart</a></li>
               <li><a href="/charts/silver" className="hover:text-gold transition-colors" title="Live Silver Chart">Silver Chart</a></li>
               <li><a href="/charts/gold-silver-ratio" className="hover:text-gold transition-colors" title="Gold/Silver Ratio Chart">Gold/Silver Ratio</a></li>
@@ -76,9 +77,10 @@ const Footer = () => {
         
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            {new Date().getFullYear()} <strong>XAUUSD CHART LIVE</strong>. All rights reserved.
+            {new Date().getFullYear()} <a href="/" className="text-gray-400 hover:text-gold transition-colors"><strong>XAUUSD CHART LIVE</strong></a>. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
+            <a href="/" className="text-gray-400 hover:text-gold text-sm transition-colors" title="XAUUSD Chart Live Home">Home</a>
             <a href="/privacy-policy" className="text-gray-400 hover:text-gold text-sm transition-colors" title="Privacy Policy">Privacy Policy</a>
             <a href="/terms-of-service" className="text-gray-400 hover:text-gold text-sm transition-colors" title="Terms of Service">Terms of Service</a>
             <a href="/disclaimer" className="text-gray-400 hover:text-gold text-sm transition-colors" title="Legal Disclaimer">Disclaimer</a>

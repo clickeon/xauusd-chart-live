@@ -30,7 +30,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="flex items-center space-x-2" title="XAUUSD Chart Live Home">
+            <a href="/" className="flex items-center space-x-2" title="XAUUSD Chart Live Home">
               <span className="gold-gradient rounded-md h-8 w-8 flex items-center justify-center">
                 <span className="text-white font-bold">XAU</span>
               </span>
@@ -39,7 +39,8 @@ const Navbar = () => {
           </div>
           
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Price Home">Home</a>
+            <a href="/" className="text-navy-light hover:text-gold transition-colors" title="Gold Price Home">Home</a>
+            <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Price Home">Gold Price</a>
             <a href="#chart" onClick={(e) => scrollToSection('chart', e)} className="text-navy-light hover:text-gold transition-colors" title="Live Gold Charts">Gold Charts</a>
             <a href="#signals" onClick={(e) => scrollToSection('signals', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Trading Signals">Trading Signals</a>
             <a href="#news" onClick={(e) => scrollToSection('news', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Market News">Gold News</a>
