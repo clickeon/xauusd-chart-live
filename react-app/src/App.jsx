@@ -4,14 +4,15 @@ import { Routes, Route } from 'react-router-dom';
 import './index.css';
 
 // Components
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import AhrefsAnalytics from './components/AhrefsAnalytics';
 import SEOLinks from './components/SEOLinks';
 
 // Pages
 import Home from './pages/Home';
 import Disclaimer from './pages/legal/Disclaimer';
+import TermsOfService from './pages/legal/TermsOfService';
+import PrivacyPolicy from './pages/legal/PrivacyPolicy';
+import AboutUs from './pages/AboutUs';
 
 // API
 import { goldApi } from './api/goldApi';
@@ -120,14 +121,14 @@ function App() {
         </Helmet>
 
         <SEOLinks />
-        <Navbar />
 
         <Routes>
           <Route path="/" element={<Home priceData={priceData} />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Routes>
-
-        <Footer />
       </div>
     </HelmetProvider>
   );

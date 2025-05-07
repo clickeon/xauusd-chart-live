@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import PriceChart from '../components/PriceChart';
 import SignalIndicator from '../components/SignalIndicator';
@@ -7,7 +8,7 @@ import NewsSection from '../components/NewsSection';
 
 const Home = ({ priceData }) => {
   return (
-    <>
+    <Layout>
       <Helmet>
         <title>XAUUSD Chart Live | Real-Time Gold Price Tracking | XAU/USD Analysis</title>
         <meta 
@@ -27,7 +28,7 @@ const Home = ({ priceData }) => {
         <SignalIndicator />
         <NewsSection />
       </main>
-    </>
+    </Layout>
   );
 };
 
