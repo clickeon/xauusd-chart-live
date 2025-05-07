@@ -45,8 +45,8 @@ const Navbar = () => {
             <a href="#signals" onClick={(e) => scrollToSection('signals', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Trading Signals">Trading Signals</a>
             <a href="#news" onClick={(e) => scrollToSection('news', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Market News">Gold News</a>
             <a href="#" className="text-navy-light hover:text-gold transition-colors" title="Gold Market Analysis">Market Analysis</a>
-            <a href="#footer" onClick={(e) => scrollToSection('footer', e)} className="text-navy-light hover:text-gold transition-colors" title="About XAUUSD Chart Live">About Us</a>
             <a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-navy-light hover:text-gold transition-colors" title="Trade Gold Online">Trade Gold</a>
+            <a href="#footer" onClick={(e) => scrollToSection('footer', e)} className="text-navy-light hover:text-gold transition-colors" title="About XAUUSD Chart Live">About Us</a>
           </nav>
           
           <div className="flex items-center space-x-4">
