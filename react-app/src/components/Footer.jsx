@@ -1,4 +1,23 @@
+import React, { useState } from 'react';
+
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    setMessage('');
+    setError('');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    setMessage('Thank you for subscribing! You will receive updates in your inbox.');
+    setEmail('');
+  };
+
   return (
     <footer className="bg-navy text-white py-12">
       <div className="container mx-auto px-4">
@@ -59,11 +78,14 @@ const Footer = () => {
             <p className="text-gray-300 text-sm mb-4">
               Get daily gold price updates and market analysis sent directly to your inbox.
             </p>
-            <form className="flex mt-2">
+            <form className="flex mt-2" onSubmit={handleSubscribe}>
               <input
                 type="email"
                 placeholder="Enter your email"
                 className="bg-navy-light text-white px-4 py-2 rounded-l-md focus:outline-none w-full"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
               />
               <button
                 type="submit"
@@ -72,6 +94,8 @@ const Footer = () => {
                 Subscribe
               </button>
             </form>
+            {message && <div className="text-green-400 mt-2 text-sm">{message}</div>}
+            {error && <div className="text-red-400 mt-2 text-sm">{error}</div>}
           </div>
         </div>
         
