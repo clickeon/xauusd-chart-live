@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -53,12 +54,10 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Charts Links</h3>
             <ul className="space-y-2 text-gray-300">
-              <li><a href="/" className="hover:text-gold transition-colors" title="XAUUSD Chart Live Home">Home</a></li>
-              <li><a href="/charts" className="hover:text-gold transition-colors" title="Live Gold Chart">Gold Chart</a></li>
-              <li><a href="/charts/silver" className="hover:text-gold transition-colors" title="Live Silver Chart">Silver Chart</a></li>
-              <li><a href="/charts/gold-silver-ratio" className="hover:text-gold transition-colors" title="Gold/Silver Ratio Chart">Gold/Silver Ratio</a></li>
-              <li><a href="/historical-data" className="hover:text-gold transition-colors" title="Historical Gold Price Data">Historical Data</a></li>
-              <li><a href="/charts/download" className="hover:text-gold transition-colors" title="Download Gold Charts">Download Charts</a></li>
+              <li><Link to="/" className="hover:text-gold transition-colors" title="XAUUSD Chart Live Home">Home</Link></li>
+              <li><Link to="/charts" className="hover:text-gold transition-colors" title="Live Gold Chart">Gold Chart</Link></li>
+              <li><Link to="/historical-data" className="hover:text-gold transition-colors" title="Historical Gold Price Data">Historical Data</Link></li>
+              <li><Link to="/charts/download" className="hover:text-gold transition-colors" title="Download Gold Charts">Download Charts</Link></li>
             </ul>
           </div>
           

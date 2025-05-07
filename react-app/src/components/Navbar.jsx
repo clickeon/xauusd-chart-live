@@ -40,12 +40,12 @@ const Navbar = () => {
           </div>
           
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="/" className="text-navy-light hover:text-gold transition-colors" title="Gold Price Home">Home</a>
-            <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Price Home">Gold Price</a>
-            <a href="#chart" onClick={(e) => scrollToSection('chart', e)} className="text-navy-light hover:text-gold transition-colors" title="Live Gold Charts">Gold Charts</a>
-            <a href="#signals" onClick={(e) => scrollToSection('signals', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Trading Signals">Trading Signals</a>
-            <a href="#news" onClick={(e) => scrollToSection('news', e)} className="text-navy-light hover:text-gold transition-colors" title="Gold Market News">Gold News</a>
-            <a href="#" className="text-navy-light hover:text-gold transition-colors" title="Gold Market Analysis">Market Analysis</a>
+            <Link to="/" className="text-navy-light hover:text-gold transition-colors" title="Gold Price Home">Home</Link>
+            <Link to="/#hero" className="text-navy-light hover:text-gold transition-colors" title="Gold Price">Gold Price</Link>
+            <Link to="/#chart" className="text-navy-light hover:text-gold transition-colors" title="Live Gold Charts">Gold Charts</Link>
+            <Link to="/#signals" className="text-navy-light hover:text-gold transition-colors" title="Gold Trading Signals">Trading Signals</Link>
+            <Link to="/#news" className="text-navy-light hover:text-gold transition-colors" title="Gold Market News">Gold News</Link>
+            <Link to="/#analysis" className="text-navy-light hover:text-gold transition-colors" title="Gold Market Analysis">Market Analysis</Link>
             <a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-navy-light hover:text-gold transition-colors" title="Trade Gold Online">Trade Gold</a>
             <Link to="/about-us" className="text-navy-light hover:text-gold transition-colors" title="About XAUUSD Chart Live">About Us</Link>
           </nav>

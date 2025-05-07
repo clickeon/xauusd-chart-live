@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import PriceChart from '../components/PriceChart';
@@ -7,6 +8,18 @@ import SignalIndicator from '../components/SignalIndicator';
 import NewsSection from '../components/NewsSection';
 
 const Home = ({ priceData }) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+
   return (
     <Layout>
       <Helmet>
