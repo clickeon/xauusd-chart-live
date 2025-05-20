@@ -109,15 +109,64 @@ function App() {
     }
   }, []);
 
+  // Function to generate page-specific metadata based on the current route
+  const getPageMetadata = () => {
+    // Default metadata for homepage
+    let metadata = {
+      title: "XAUUSD Chart Live | Real-Time Gold Price Tracking | XAU/USD Analysis",
+      description: "Track XAUUSD gold prices in real-time with professional interactive charts, expert trading signals, and comprehensive market analysis on XAUUSD Chart Live.",
+      canonicalPath: ""
+    };
+    
+    // Route-specific metadata
+    switch(location.pathname) {
+      case "/about-us":
+        metadata = {
+          title: "About Us | XAUUSD Chart Live | Gold Price Tracking",
+          description: "Learn about the team behind XAUUSD Chart Live, our mission to provide the best gold price tracking tools, and our commitment to traders worldwide.",
+          canonicalPath: "/about-us"
+        };
+        break;
+      case "/disclaimer":
+        metadata = {
+          title: "Legal Disclaimer | XAUUSD Chart Live",
+          description: "Important legal information and disclaimers regarding the use of XAUUSD Chart Live's gold price tracking tools and trading signals.",
+          canonicalPath: "/disclaimer"
+        };
+        break;
+      case "/terms-of-service":
+        metadata = {
+          title: "Terms of Service | XAUUSD Chart Live",
+          description: "Terms and conditions for using XAUUSD Chart Live's gold price tracking platform and related services.",
+          canonicalPath: "/terms-of-service"
+        };
+        break;
+      case "/privacy-policy":
+        metadata = {
+          title: "Privacy Policy | XAUUSD Chart Live",
+          description: "Learn how XAUUSD Chart Live collects, uses, and protects your personal information when using our gold price tracking platform.",
+          canonicalPath: "/privacy-policy"
+        };
+        break;
+      default:
+        // Homepage or unknown routes use default metadata
+        break;
+    }
+    
+    return metadata;
+  };
+  
+  const pageMetadata = getPageMetadata();
+  
   return (
     <HelmetProvider>
       <AhrefsAnalytics />
       <div className="min-h-screen bg-navy">
         <Helmet>
-          <title>XAUUSD Chart Live | Real-Time Gold Price Tracking | XAU/USD Analysis</title>
-          <meta name="description" content="Track XAUUSD gold prices in real-time with professional interactive charts, expert trading signals, and comprehensive market analysis on XAUUSD Chart Live." />
+          <title>{pageMetadata.title}</title>
+          <meta name="description" content={pageMetadata.description} />
           <meta name="keywords" content="XAUUSD chart live, gold price chart, XAU/USD live chart, gold trading signals, precious metals, trading analysis, gold market news" />
-          <link rel="canonical" href={`https://xauusd-chart-live.com${location.pathname}`} />
+          <link rel="canonical" href={`https://xauusd-chart-live.com${pageMetadata.canonicalPath}`} />
           <meta property="article:publisher" content="https://xauusd-chart-live.com" />
           <meta name="author" content="XAUUSD CHART LIVE" />
           <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
