@@ -1,10 +1,10 @@
 [build]
-  command = "pip install -r requirements.txt"
+  command = "chmod +x build.sh && ./build.sh"
   publish = "."
   functions = "netlify/functions"
 
 [build.environment]
-  PYTHON_VERSION = "3.9"
+  PYTHON_VERSION = "3.11"
 
 # Redirect all routes to index.html for client-side routing
 [[redirects]]
