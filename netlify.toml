@@ -1,10 +1,12 @@
 [build]
-  command = "pip install -r requirements.txt"
+  command = "pip install -r requirements.txt && mkdir -p netlify/functions"
   publish = "."
   functions = "netlify/functions"
 
 [build.environment]
-  PYTHON_VERSION = "3.8"
+  PYTHON_VERSION = "3.7"
+  PIPENV_VENV_IN_PROJECT = "1"
+  PIPENV_DEFAULT_PYTHON_VERSION = "3.7"
 
 # Redirect all routes to index.html for client-side routing
 [[redirects]]
