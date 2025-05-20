@@ -9,7 +9,7 @@ import React from 'react';
  */
 const SEOLinks = () => {
   return (
-    <div className="sr-only">
+    <div className="seo-links" aria-hidden="true" style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: '0' }}>
       <div className="container mx-auto px-4">
         <div className="text-xs text-gray-500 mb-2">Quick Links:</div>
         <nav aria-label="SEO Navigation">
