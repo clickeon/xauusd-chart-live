@@ -15,11 +15,14 @@ const SEOLinks = () => {
         <nav aria-label="SEO Navigation">
           <ul className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-gray-600">
             <li><a href="/" title="XAUUSD Chart Live Home" className="hover:text-gold transition-colors">Home</a></li>
-            <li><a href="/#price-chart" title="Live Gold Price Chart" className="hover:text-gold transition-colors">Gold Price Chart</a></li>
-            <li><a href="/#trading-signals" title="Gold Trading Signals" className="hover:text-gold transition-colors">Trading Signals</a></li>
-            <li><a href="/#market-news" title="Gold Market News" className="hover:text-gold transition-colors">Market News</a></li>
-            <li><a href="/#about-gold" title="Understanding Gold Trading" className="hover:text-gold transition-colors">About Gold Trading</a></li>
-            <li><a href="/about-us" title="About XAUUSD Chart Live" className="hover:text-gold transition-colors">About Us</a></li>
+            <li><a href="/charts" title="Live Gold Chart" className="hover:text-gold transition-colors">Gold Charts</a></li>
+            <li><a href="/charts/silver" title="Live Silver Chart" className="hover:text-gold transition-colors">Silver Charts</a></li>
+            <li><a href="/news" title="Gold Market News" className="hover:text-gold transition-colors">Gold News</a></li>
+            <li><a href="/signals" title="Gold Trading Signals" className="hover:text-gold transition-colors">Trading Signals</a></li>
+            <li><a href="/analysis" title="Gold Market Analysis" className="hover:text-gold transition-colors">Market Analysis</a></li>
+            <li><a href="/historical-data" title="Historical Gold Price Data" className="hover:text-gold transition-colors">Historical Data</a></li>
+            <li><a href="/about" title="About XAUUSD Chart Live" className="hover:text-gold transition-colors">About Us</a></li>
+            <li><a href="/contact" title="Contact XAUUSD Chart Live" className="hover:text-gold transition-colors">Contact</a></li>
             <li><a href="/privacy-policy" title="Privacy Policy" className="hover:text-gold transition-colors">Privacy Policy</a></li>
             <li><a href="/terms-of-service" title="Terms of Service" className="hover:text-gold transition-colors">Terms of Service</a></li>
             <li><a href="/disclaimer" title="Legal Disclaimer" className="hover:text-gold transition-colors">Disclaimer</a></li>
