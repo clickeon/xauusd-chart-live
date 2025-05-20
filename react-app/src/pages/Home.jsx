@@ -29,7 +29,6 @@ const Home = ({ priceData }) => {
           content="Track XAUUSD gold prices in real-time with professional interactive charts and expert trading signals. Get comprehensive market analysis and live gold price updates." 
         />
         <meta name="keywords" content="XAUUSD chart live, gold price chart, XAU/USD live chart, gold trading signals, precious metals, trading analysis, gold market news" />
-        <link rel="canonical" href="https://xauusd-chart-live.com" />
         <meta property="article:publisher" content="https://xauusd-chart-live.com" />
         <meta name="author" content="XAUUSD CHART LIVE" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
