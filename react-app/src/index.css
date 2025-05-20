@@ -76,3 +76,48 @@
 .navbar-fixed {
   @apply fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-sm shadow-md;
 }
+
+/* Section Titles and Content */
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #f8f9fa;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.content-section {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.content-wrapper p {
+  color: #e9ecef;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.content-wrapper p:last-child {
+  margin-bottom: 0;
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
