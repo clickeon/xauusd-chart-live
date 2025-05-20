@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}XAUUSD Chart Live | Real-Time Gold Price Tracking | XAU/USD Analysis{% endblock %}</title>
+    <meta name="description" content="Track XAUUSD gold prices in real-time with professional interactive charts, expert trading signals, and comprehensive market analysis on XAUUSD Chart Live.">
+    <meta name="keywords" content="XAUUSD chart live, gold price chart, XAU/USD live chart, gold trading signals, precious metals, trading analysis, gold market news">
+    <link rel="canonical" href="https://xauusd-chart-live.com">
+    <meta property="article:publisher" content="https://xauusd-chart-live.com">
+    <meta name="author" content="XAUUSD CHART LIVE">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+    {% block head %}{% endblock %}
+</head>
+<body class="min-h-screen bg-navy">
+    <header class="bg-navy-dark text-white p-4">
+        <nav class="container mx-auto">
+            <div class="flex justify-between items-center">
+                <a href="/" class="text-xl font-bold">XAUUSD Chart Live</a>
+                <div class="space-x-4">
+                    <a href="/" class="hover:text-gold">Home</a>
+                    <a href="/about" class="hover:text-gold">About</a>
+                    <a href="/disclaimer" class="hover:text-gold">Disclaimer</a>
+                    <a href="/privacy-policy" class="hover:text-gold">Privacy</a>
+                    <a href="/terms-of-service" class="hover:text-gold">Terms</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-navy-dark text-white p-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; {{ now.year }} XAUUSD Chart Live. All rights reserved.</p>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html> 
