@@ -22,27 +22,6 @@ app = Flask(__name__,
 # Configure CORS to allow requests from any origin for all endpoints
 CORS(app)
 
-# Custom Jinja2 filters
-@app.template_filter('datetime')
-def format_datetime(value):
-    """Format a datetime object or ISO string to a readable format"""
-    if isinstance(value, str):
-        try:
-            value = datetime.fromisoformat(value.replace('Z', '+00:00'))
-        except ValueError:
-            return value
-    if isinstance(value, datetime):
-        return value.strftime('%Y-%m-%d %H:%M:%S')
-    return value
-
-@app.template_filter('number_format')
-def number_format(value):
-    """Format a number with commas as thousands separators"""
-    try:
-        return "{:,}".format(float(value))
-    except (ValueError, TypeError):
-        return value
-
 # Cache for gold price
 price_cache = {
     'price': None,
@@ -799,69 +778,6 @@ def serve_react(path):
 def serve_react_index():
     react_build_dir = os.path.join(os.path.dirname(__file__), 'react-build')
     return send_from_directory(react_build_dir, 'index.html')
-
-@app.route('/')
-def index():
-    """Main route that serves the server-side rendered home page"""
-    try:
-        # Get current price data
-        price_data = get_gold_price()
-        if isinstance(price_data, tuple):
-            price, change, change_percent = price_data
-            price_data = {
-                'price': price,
-                'change': change,
-                'change_percent': change_percent,
-                'timestamp': datetime.now().isoformat()
-            }
-        else:
-            price_data = {
-                'price': price_data,
-                'change': None,
-                'change_percent': None,
-                'timestamp': datetime.now().isoformat()
-            }
-
-        # Get historical prices
-        historical_prices = get_historical_prices()
-        if historical_prices and 'prices' in historical_prices:
-            # Format data for Chart.js
-            labels = [datetime.fromtimestamp(p['timestamp']).strftime('%Y-%m-%d %H:%M') for p in historical_prices['prices']]
-            prices = [p['price'] for p in historical_prices['prices']]
-            historical_data = {
-                'labels': labels,
-                'prices': prices
-            }
-        else:
-            historical_data = {
-                'labels': [],
-                'prices': []
-            }
-
-        # Get market stats
-        market_stats = get_market_stats()
-
-        # Get trading signals
-        trading_signals = get_trading_signals(historical_prices['prices'] if historical_prices and 'prices' in historical_prices else [])
-
-        # Render the template with all the data
-        return render_template('index.html',
-            price_data=price_data,
-            historical_prices=historical_data,
-            market_stats=market_stats,
-            trading_signals=trading_signals,
-            now=datetime.now()
-        )
-    except Exception as e:
-        print(f"Error in index route: {str(e)}")
-        traceback.print_exc()
-        return render_template('index.html',
-            price_data={'price': 2300.00, 'change': 0, 'change_percent': 0, 'timestamp': datetime.now().isoformat()},
-            historical_prices={'labels': [], 'prices': []},
-            market_stats={},
-            trading_signals=[],
-            now=datetime.now()
-        )
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 8080))
