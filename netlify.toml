@@ -1,7 +1,10 @@
 [build]
-  base = "react-app"
-  command = "npm install && npm run build"
-  publish = "react-app/dist"
+  command = "pip install -r requirements.txt"
+  publish = "."
+  functions = "netlify/functions"
+
+[build.environment]
+  PYTHON_VERSION = "3.9"
 
 # Redirect all routes to index.html for client-side routing
 [[redirects]]
@@ -18,3 +21,7 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://xauusd-api.herokuapp.com;"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
