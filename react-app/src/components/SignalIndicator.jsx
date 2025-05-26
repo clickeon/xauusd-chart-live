@@ -271,115 +271,117 @@ const SignalIndicator = () => {
   try {
     return (
       <section id="signals" className="container mx-auto py-12 animate-fade-in">
-        <h2 className="text-3xl font-bold text-navy mb-8 text-center">
-          Trading <span className="text-gold">Signals</span> & Forecasts
-        </h2>
-        <p className="text-center text-navy-light mb-8">
-          Professional trading signals based on technical analysis and market conditions
-        </p>
+        <div className="bg-[#1e293b] border border-[#334155] rounded-2xl p-8 text-white relative z-10">
+          <h3 className="text-2xl font-bold mb-4 text-center" style={{ color: '#FFD700' }}>
+            Trading <span style={{ color: '#FFD700' }}>Signals</span> & Forecasts
+          </h3>
+          <p className="text-center mb-8" style={{ color: '#fff' }}>
+            Professional trading signals based on technical analysis and market conditions
+          </p>
 
-        {error ? (
-          <div className="text-center py-4 text-amber-500 mb-6">
-            <p>{error}</p>
-          </div>
-        ) : null}
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {signals && signals.length > 0 ? (
-            signals.map((signal, index) => {
-              try {
-                if (!signal) return null;
-                
-                // Safe signal type display
-                const safeType = signal.type ? signal.type.toString().toLowerCase() : 'hold';
-                
-                return (
-                  <Card key={index} className="card-gold overflow-hidden">
-                    <div className="flex justify-between items-center p-4 border-b border-gold/10">
-                      <div>
-                        <Badge variant={getSignalColor(safeType)} className="mb-1">
-                          {safeType.toUpperCase()}
-                        </Badge>
-                        <CardTitle className="text-lg text-navy">
-                          {signal.timeframe || 'Short-term'} Signal
-                        </CardTitle>
-                      </div>
-                      <div className="flex space-x-1">
-                        {getStrengthIndicator(signal.strength)}
-                      </div>
-                    </div>
-                    <CardContent className="pt-4">
-                      <CardDescription className="text-navy-light mb-4">
-                        {signal.reason || 'Based on technical analysis'}
-                      </CardDescription>
-                      <div className="grid grid-cols-2 gap-4 text-sm mt-4">
-                        <div>
-                          <div className="text-navy-light">Entry Price</div>
-                          <div className="font-semibold text-navy">
-                            {formatCurrency(signal.price)}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-navy-light">Target Price</div>
-                          <div className={`font-semibold ${safeType === 'buy' ? 'text-green-600' : safeType === 'sell' ? 'text-red-600' : 'text-amber-600'}`}>
-                            {formatCurrency(signal.target)}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-navy-light">Potential Gain</div>
-                          <div className="font-medium text-green-600">
-                            {safeType === 'buy' 
-                              ? `+${(((signal.target || 0) - (signal.price || 0)) / (signal.price || 1) * 100).toFixed(2)}%`
-                              : safeType === 'sell'
-                                ? `+${(((signal.price || 0) - (signal.target || 0)) / (signal.price || 1) * 100).toFixed(2)}%`
-                                : '0.00%'}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-navy-light">Stop Loss</div>
-                          <div className="font-medium text-red-600">
-                            {formatCurrency(signal.stopLoss)}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mt-6 pt-4 border-t border-gold/10">
-                        <a 
-                          href="https://lnk.brokerinspect.com/trade-gold" 
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gold hover:text-gold-dark transition-colors text-sm flex items-center"
-                        >
-                          <span>Execute this trade now</span>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="ml-1"
-                          >
-                            <path d="M5 12h14"></path>
-                            <path d="m12 5 7 7-7 7"></path>
-                          </svg>
-                        </a>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              } catch (itemError) {
-                console.error('Error rendering signal item:', itemError);
-                return null; // Skip failed items
-              }
-            })
-          ) : (
-            <div className="col-span-3 text-center py-8">
-              <p>No trading signals available at this time. Please check back later.</p>
+          {error ? (
+            <div className="text-center py-4 text-amber-500 mb-6">
+              <p>{error}</p>
             </div>
-          )}
+          ) : null}
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {signals && signals.length > 0 ? (
+              signals.map((signal, index) => {
+                try {
+                  if (!signal) return null;
+                  
+                  // Safe signal type display
+                  const safeType = signal.type ? signal.type.toString().toLowerCase() : 'hold';
+                  
+                  return (
+                    <Card key={index} className="card-gold overflow-hidden">
+                      <div className="flex justify-between items-center p-4 border-b border-gold/10">
+                        <div>
+                          <Badge variant={getSignalColor(safeType)} className="mb-1">
+                            {safeType.toUpperCase()}
+                          </Badge>
+                          <CardTitle className="text-lg text-navy">
+                            {signal.timeframe || 'Short-term'} Signal
+                          </CardTitle>
+                        </div>
+                        <div className="flex space-x-1">
+                          {getStrengthIndicator(signal.strength)}
+                        </div>
+                      </div>
+                      <CardContent className="pt-4">
+                        <CardDescription className="text-navy-light mb-4">
+                          {signal.reason || 'Based on technical analysis'}
+                        </CardDescription>
+                        <div className="grid grid-cols-2 gap-4 text-sm mt-4">
+                          <div>
+                            <div className="text-navy-light">Entry Price</div>
+                            <div className="font-semibold text-navy">
+                              {formatCurrency(signal.price)}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-navy-light">Target Price</div>
+                            <div className={`font-semibold ${safeType === 'buy' ? 'text-green-600' : safeType === 'sell' ? 'text-red-600' : 'text-amber-600'}`}>
+                              {formatCurrency(signal.target)}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-navy-light">Potential Gain</div>
+                            <div className="font-medium text-green-600">
+                              {safeType === 'buy' 
+                                ? `+${(((signal.target || 0) - (signal.price || 0)) / (signal.price || 1) * 100).toFixed(2)}%`
+                                : safeType === 'sell'
+                                  ? `+${(((signal.price || 0) - (signal.target || 0)) / (signal.price || 1) * 100).toFixed(2)}%`
+                                  : '0.00%'}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-navy-light">Stop Loss</div>
+                            <div className="font-medium text-red-600">
+                              {formatCurrency(signal.stopLoss)}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-4 border-t border-gold/10">
+                          <a 
+                            href="https://lnk.brokerinspect.com/trade-gold" 
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gold hover:text-gold-dark transition-colors text-sm flex items-center"
+                          >
+                            <span>Execute this trade now</span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="ml-1"
+                            >
+                              <path d="M5 12h14"></path>
+                              <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                          </a>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                } catch (itemError) {
+                  console.error('Error rendering signal item:', itemError);
+                  return null; // Skip failed items
+                }
+              })
+            ) : (
+              <div className="col-span-3 text-center py-8">
+                <p>No trading signals available at this time. Please check back later.</p>
+              </div>
+            )}
+          </div>
         </div>
       </section>
     );
