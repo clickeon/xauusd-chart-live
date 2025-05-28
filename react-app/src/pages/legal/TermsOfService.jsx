@@ -1,9 +1,20 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Layout from '../../components/Layout';
 
 const TermsOfService = () => {
   return (
     <Layout>
+      <Helmet>
+        <title>Terms of Service - XAUUSD Chart Live | User Agreement</title>
+        <meta 
+          name="description" 
+          content="Read our Terms of Service and user agreement. Important legal terms and conditions for using XAUUSD Chart Live gold price tracking platform." 
+        />
+        <link rel="canonical" href="https://xauusd-chart-live.com/terms-of-service" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      
       <div className="container mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold mb-8 text-gold">Terms of Service</h1>

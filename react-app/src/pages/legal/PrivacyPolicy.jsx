@@ -1,9 +1,20 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Layout from '../../components/Layout';
 
 const PrivacyPolicy = () => {
   return (
     <Layout>
+      <Helmet>
+        <title>Privacy Policy - XAUUSD Chart Live | Data Protection</title>
+        <meta 
+          name="description" 
+          content="Our Privacy Policy explains how XAUUSD Chart Live collects, uses, and protects your information. Learn about your data rights and our security measures." 
+        />
+        <link rel="canonical" href="https://xauusd-chart-live.com/privacy-policy" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      
       <div className="container mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold mb-8 text-gold">Privacy Policy</h1>

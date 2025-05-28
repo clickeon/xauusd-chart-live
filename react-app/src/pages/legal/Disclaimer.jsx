@@ -1,9 +1,20 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Layout from '../../components/Layout';
 
 const Disclaimer = () => {
   return (
     <Layout>
+      <Helmet>
+        <title>Legal Disclaimer - XAUUSD Chart Live | Risk Warning</title>
+        <meta 
+          name="description" 
+          content="Read our legal disclaimer and risk warning. Trading gold involves substantial risk. Important legal information for XAUUSD Chart Live users." 
+        />
+        <link rel="canonical" href="https://xauusd-chart-live.com/disclaimer" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      
       <div className="container mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold mb-8 text-gold">Legal Disclaimer</h1>

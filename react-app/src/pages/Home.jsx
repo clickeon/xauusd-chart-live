@@ -32,6 +32,7 @@ const Home = ({ priceData }) => {
         <meta property="article:publisher" content="https://xauusd-chart-live.com" />
         <meta name="author" content="XAUUSD CHART LIVE" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        <link rel="canonical" href="https://xauusd-chart-live.com/" />
       </Helmet>
 
       <main>
