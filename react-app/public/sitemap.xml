@@ -1,33 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://xauusd-chart-live.com/</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://xauusd-chart-live.com/about-us</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://xauusd-chart-live.com/disclaimer</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://xauusd-chart-live.com/terms-of-service</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://xauusd-chart-live.com/privacy-policy</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://xauusd-chart-live.com/</loc>
+      <lastmod>2025-05-04</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>1.0</priority>
+   </url>
 </urlset>
