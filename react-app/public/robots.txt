@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
 
 Sitemap: https://xauusd-chart-live.com/sitemap.xml
+
+# Preferred domain
+Host: https://xauusd-chart-live.com

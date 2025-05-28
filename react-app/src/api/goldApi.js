@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Base URL for the API - configured to work with both development and production
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? '' 
+  ? 'https://xauusd-chart-live.com/api' 
   : 'http://localhost:8080';
 
 // Fallback data generator functions
@@ -276,8 +276,11 @@ export const goldApi = {
    */
   tryLegacyEndpoint: async (endpoint) => {
     try {
-      // Use old endpoint format without /api prefix
-      const response = await axios.get(`http://localhost:8080/${endpoint}`);
+      // Use environment-appropriate URL
+      const baseUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://xauusd-chart-live.com/api' 
+        : 'http://localhost:8080';
+      const response = await axios.get(`${baseUrl}/${endpoint}`);
       return response.data;
     } catch (error) {
       console.error(`Error fetching from legacy endpoint ${endpoint}:`, error);

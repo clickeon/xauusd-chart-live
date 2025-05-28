@@ -3,13 +3,20 @@
   command = "npm install && npm run build"
   publish = "react-app/dist"
 
+# Force HTTPS redirect
+[[redirects]]
+  from = "http://xauusd-chart-live.com/*"
+  to = "https://xauusd-chart-live.com/:splat"
+  status = 301
+  force = true
+
 # Redirect all routes to index.html for client-side routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   
-# Add security headers
+# Add security headers with HTTPS enforcement
 [[headers]]
   for = "/*"
   [headers.values]
@@ -17,4 +24,5 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://xauusd-api.herokuapp.com;"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https:;"
