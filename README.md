@@ -12,6 +12,7 @@ XAUUSD Chart Live is a professional, SEO-optimized gold price tracking web appli
 - **Latest Market News**: Gold-related financial news updates
 - **Responsive Design**: Optimized for all device sizes
 - **Robust Error Handling**: Fallback mechanisms for all data sources
+//
 
 ## Tech Stack
 - **Frontend**: React with Tailwind CSS and Recharts
