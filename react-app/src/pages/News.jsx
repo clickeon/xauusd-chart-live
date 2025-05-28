@@ -5,12 +5,13 @@ const News = () => {
   return (
     <>
       <Helmet>
-        <title>Gold Market News | Latest XAUUSD Analysis | Gold Price Updates</title>
+        <title>Gold Market News | XAUUSD Market Updates | Gold Price Analysis</title>
         <meta 
           name="description" 
-          content="Stay updated with the latest gold market news, XAUUSD price analysis, and expert insights. Get real-time updates on factors affecting gold prices and market trends." 
+          content="Stay updated with the latest gold market news, XAUUSD price analysis, and factors affecting gold prices. Get expert insights on economic events impacting the gold market." 
         />
-        <meta name="keywords" content="gold market news, XAUUSD news, gold price analysis, precious metals news, gold market updates, XAU/USD market insights" />
+        <meta name="keywords" content="gold market news, XAUUSD market updates, gold price analysis, gold market factors, precious metals news" />
+        <link rel="canonical" href="https://xauusd-chart-live.com/news" />
       </Helmet>
 
       <div className="container mx-auto px-4 py-8">

@@ -11,6 +11,7 @@ const Signals = () => {
           content="Get professional gold trading signals with precise entry/exit points, stop-loss levels, and profit targets for XAUUSD. Our expert analysis helps maximize your gold trading profits." 
         />
         <meta name="keywords" content="gold trading signals, XAUUSD buy sell indicators, gold market analysis, XAU/USD trading strategy, gold price predictions" />
+        <link rel="canonical" href="https://xauusd-chart-live.com/signals" />
       </Helmet>
 
       <div className="container mx-auto px-4 py-8">

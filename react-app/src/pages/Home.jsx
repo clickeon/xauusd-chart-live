@@ -11,7 +11,6 @@ const Home = ({ priceData }) => {
   const location = useLocation();
 
   useEffect(() => {
-    // Handle hash navigation
     if (location.hash) {
       const id = location.hash.replace('#', '');
       const el = document.getElementById(id);

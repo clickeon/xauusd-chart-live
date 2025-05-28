@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
 
 // Components
@@ -20,17 +20,12 @@ import { goldApi } from './api/goldApi';
 /**
  * Main App component for XAUUSD Chart Live
  * Updated with additional SEO improvements and external links
- * Version 0.1.2 - May 2025
+ * Version 0.1.1 - May 2025
  */
 function App() {
-  // Check if this is a static page (to avoid overriding static meta tags)
-  const [isStaticPage, setIsStaticPage] = useState(false);
-
-  useEffect(() => {
-    const staticPageMeta = document.querySelector('meta[name="static-page"]');
-    setIsStaticPage(!!staticPageMeta);
-  }, []);
-
+  // Get current location for dynamic canonical URLs
+  const location = useLocation();
+  
   // State for gold price data
   const [priceData, setPriceData] = useState({
     price: null,
@@ -118,16 +113,15 @@ function App() {
     <HelmetProvider>
       <AhrefsAnalytics />
       <div className="min-h-screen bg-navy">
-        {!isStaticPage && (
-          <Helmet>
-            <title>XAUUSD Chart Live | Real-Time Gold Price Tracking | XAU/USD Analysis</title>
-            <meta name="description" content="Track XAUUSD gold prices in real-time with professional interactive charts, expert trading signals, and comprehensive market analysis on XAUUSD Chart Live." />
-            <meta name="keywords" content="XAUUSD chart live, gold price chart, XAU/USD live chart, gold trading signals, precious metals, trading analysis, gold market news" />
-            <meta property="article:publisher" content="https://xauusd-chart-live.com" />
-            <meta name="author" content="XAUUSD CHART LIVE" />
-            <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-          </Helmet>
-        )}
+        <Helmet>
+          <title>XAUUSD Chart Live | Real-Time Gold Price Tracking | XAU/USD Analysis</title>
+          <meta name="description" content="Track XAUUSD gold prices in real-time with professional interactive charts, expert trading signals, and comprehensive market analysis on XAUUSD Chart Live." />
+          <meta name="keywords" content="XAUUSD chart live, gold price chart, XAU/USD live chart, gold trading signals, precious metals, trading analysis, gold market news" />
+          <link rel="canonical" href={`https://xauusd-chart-live.com${location.pathname}`} />
+          <meta property="article:publisher" content="https://xauusd-chart-live.com" />
+          <meta name="author" content="XAUUSD CHART LIVE" />
+          <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        </Helmet>
 
         <SEOLinks />
 

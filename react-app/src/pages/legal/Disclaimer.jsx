@@ -1,28 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import React from 'react';
 import Layout from '../../components/Layout';
 
 const Disclaimer = () => {
-  const [isStaticPage, setIsStaticPage] = useState(false);
-
-  useEffect(() => {
-    const staticPageMeta = document.querySelector('meta[name="static-page"]');
-    setIsStaticPage(!!staticPageMeta);
-  }, []);
-
   return (
     <Layout>
-      {!isStaticPage && (
-        <Helmet>
-          <title>Legal Disclaimer - XAUUSD Chart Live | Risk Warning</title>
-          <meta 
-            name="description" 
-            content="Read our legal disclaimer and risk warning. Trading gold involves substantial risk. Important legal information for XAUUSD Chart Live users." 
-          />
-          <meta name="robots" content="index, follow" />
-        </Helmet>
-      )}
-      
       <div className="container mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold mb-8 text-gold">Legal Disclaimer</h1>

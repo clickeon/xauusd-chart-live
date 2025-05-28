@@ -5,12 +5,13 @@ const Chart = () => {
   return (
     <>
       <Helmet>
-        <title>XAUUSD Live Chart | Real-Time Gold Price Chart | XAU/USD Technical Analysis</title>
+        <title>Gold Price Charts | Interactive XAUUSD Technical Analysis | XAU/USD Charts</title>
         <meta 
           name="description" 
-          content="View real-time XAUUSD live chart with advanced technical indicators, multiple timeframes, and professional trading tools. Analyze gold price movements with precision." 
+          content="Analyze gold price movements with our interactive XAUUSD charts featuring multiple timeframes, technical indicators, and drawing tools for precise gold trading analysis." 
         />
-        <meta name="keywords" content="XAUUSD live chart, gold price chart real time, XAU/USD chart, gold technical analysis, live gold chart, gold price tracker" />
+        <meta name="keywords" content="gold price charts, XAUUSD technical analysis, XAU/USD chart patterns, gold price forecasting, interactive gold charts" />
+        <link rel="canonical" href="https://xauusd-chart-live.com/chart" />
       </Helmet>
 
       <div className="container mx-auto px-4 py-8">

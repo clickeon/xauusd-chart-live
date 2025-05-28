@@ -1,28 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import React from 'react';
 import Layout from '../components/Layout';
 
 const AboutUs = () => {
-  const [isStaticPage, setIsStaticPage] = useState(false);
-
-  useEffect(() => {
-    const staticPageMeta = document.querySelector('meta[name="static-page"]');
-    setIsStaticPage(!!staticPageMeta);
-  }, []);
-
   return (
     <Layout>
-      {!isStaticPage && (
-        <Helmet>
-          <title>About Us - XAUUSD Chart Live | Gold Price Experts</title>
-          <meta 
-            name="description" 
-            content="Learn about XAUUSD Chart Live - your trusted source for real-time gold price tracking, advanced charting, and expert market insights. Our mission and team." 
-          />
-          <meta name="robots" content="index, follow" />
-        </Helmet>
-      )}
-      
       <div className="container mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold mb-8 text-gold">About Us</h1>
