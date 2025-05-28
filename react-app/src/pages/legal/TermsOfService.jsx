@@ -1,11 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useCanonical } from '../../hooks/useCanonical';
 import Layout from '../../components/Layout';
 
 const TermsOfService = () => {
-  useCanonical('https://xauusd-chart-live.com/terms-of-service');
-
   return (
     <Layout>
       <Helmet>
@@ -14,7 +11,6 @@ const TermsOfService = () => {
           name="description" 
           content="Read our Terms of Service and user agreement. Important legal terms and conditions for using XAUUSD Chart Live gold price tracking platform." 
         />
-        <link rel="canonical" href="https://xauusd-chart-live.com/terms-of-service" />
         <meta name="robots" content="index, follow" />
       </Helmet>
       

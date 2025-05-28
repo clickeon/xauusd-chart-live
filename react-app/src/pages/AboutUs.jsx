@@ -1,11 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useCanonical } from '../hooks/useCanonical';
 import Layout from '../components/Layout';
 
 const AboutUs = () => {
-  useCanonical('https://xauusd-chart-live.com/about-us');
-
   return (
     <Layout>
       <Helmet>
@@ -14,7 +11,6 @@ const AboutUs = () => {
           name="description" 
           content="Learn about XAUUSD Chart Live - your trusted source for real-time gold price tracking, advanced charting, and expert market insights. Our mission and team." 
         />
-        <link rel="canonical" href="https://xauusd-chart-live.com/about-us" />
         <meta name="robots" content="index, follow" />
       </Helmet>
       

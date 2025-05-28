@@ -1,11 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useCanonical } from '../../hooks/useCanonical';
 import Layout from '../../components/Layout';
 
 const PrivacyPolicy = () => {
-  useCanonical('https://xauusd-chart-live.com/privacy-policy');
-
   return (
     <Layout>
       <Helmet>
@@ -14,7 +11,6 @@ const PrivacyPolicy = () => {
           name="description" 
           content="Our Privacy Policy explains how XAUUSD Chart Live collects, uses, and protects your information. Learn about your data rights and our security measures." 
         />
-        <link rel="canonical" href="https://xauusd-chart-live.com/privacy-policy" />
         <meta name="robots" content="index, follow" />
       </Helmet>
       

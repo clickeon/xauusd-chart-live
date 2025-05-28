@@ -1,11 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useCanonical } from '../../hooks/useCanonical';
 import Layout from '../../components/Layout';
 
 const Disclaimer = () => {
-  useCanonical('https://xauusd-chart-live.com/disclaimer');
-
   return (
     <Layout>
       <Helmet>
@@ -14,7 +11,6 @@ const Disclaimer = () => {
           name="description" 
           content="Read our legal disclaimer and risk warning. Trading gold involves substantial risk. Important legal information for XAUUSD Chart Live users." 
         />
-        <link rel="canonical" href="https://xauusd-chart-live.com/disclaimer" />
         <meta name="robots" content="index, follow" />
       </Helmet>
       

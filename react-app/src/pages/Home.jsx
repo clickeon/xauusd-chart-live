@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
-import { useCanonical } from '../hooks/useCanonical';
 import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import PriceChart from '../components/PriceChart';
@@ -10,8 +9,6 @@ import NewsSection from '../components/NewsSection';
 
 const Home = ({ priceData }) => {
   const location = useLocation();
-  
-  useCanonical('https://xauusd-chart-live.com/');
 
   useEffect(() => {
     // Handle hash navigation
@@ -36,7 +33,6 @@ const Home = ({ priceData }) => {
         <meta property="article:publisher" content="https://xauusd-chart-live.com" />
         <meta name="author" content="XAUUSD CHART LIVE" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-        <link rel="canonical" href="https://xauusd-chart-live.com/" />
       </Helmet>
 
       <main>
