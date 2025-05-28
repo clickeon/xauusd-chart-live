@@ -47,6 +47,9 @@ function injectCanonicalAndMeta(html, route) {
   // Add canonical URL to head
   const canonicalTag = `<link rel="canonical" href="${route.canonicalUrl}" />`;
   
+  // Add a meta tag to signal this is a static page (for debugging)
+  const staticPageTag = `<meta name="static-page" content="${route.path}" />`;
+  
   // Update title
   let updatedHtml = html.replace(
     /<title>.*?<\/title>/,
@@ -95,10 +98,10 @@ function injectCanonicalAndMeta(html, route) {
     `"url": "${route.canonicalUrl}"`
   );
   
-  // Insert canonical URL before the closing head tag
+  // Insert canonical URL and static page marker before the closing head tag
   updatedHtml = updatedHtml.replace(
     '</head>',
-    `  ${canonicalTag}\n</head>`
+    `  ${canonicalTag}\n  ${staticPageTag}\n</head>`
   );
   
   return updatedHtml;
@@ -117,7 +120,7 @@ routes.forEach(route => {
 const homeCanonical = 'https://xauusd-chart-live.com/';
 const homeHtml = indexHtml.replace(
   '</head>',
-  `  <link rel="canonical" href="${homeCanonical}" />\n</head>`
+  `  <link rel="canonical" href="${homeCanonical}" />\n  <meta name="static-page" content="home" />\n</head>`
 );
 
 fs.writeFileSync(indexPath, homeHtml);

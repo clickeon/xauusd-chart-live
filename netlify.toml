@@ -14,28 +14,57 @@
   status = 301
   force = true
 
-# Serve specific HTML files for each route
+# Serve specific HTML files for each route (order matters - more specific first)
 [[redirects]]
   from = "/about-us"
   to = "/about-us.html"
   status = 200
+  force = false
 
 [[redirects]]
   from = "/disclaimer"
   to = "/disclaimer.html"
   status = 200
+  force = false
 
 [[redirects]]
   from = "/privacy-policy"
   to = "/privacy-policy.html"
   status = 200
+  force = false
 
 [[redirects]]
   from = "/terms-of-service"
   to = "/terms-of-service.html"
   status = 200
+  force = false
 
-# Redirect all other routes to index.html for client-side routing
+# Handle trailing slashes
+[[redirects]]
+  from = "/about-us/"
+  to = "/about-us.html"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/disclaimer/"
+  to = "/disclaimer.html"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/privacy-policy/"
+  to = "/privacy-policy.html"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/terms-of-service/"
+  to = "/terms-of-service.html"
+  status = 200
+  force = false
+
+# Redirect all other routes to index.html for client-side routing (must be last)
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -50,4 +79,4 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' https:;"
+    Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https:;"
