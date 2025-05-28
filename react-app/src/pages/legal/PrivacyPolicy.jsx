@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Layout from '../../components/Layout';
 
 const PrivacyPolicy = () => {
+  const [isStaticPage, setIsStaticPage] = useState(false);
+
+  useEffect(() => {
+    const staticPageMeta = document.querySelector('meta[name="static-page"]');
+    setIsStaticPage(!!staticPageMeta);
+  }, []);
+
   return (
     <Layout>
-      <Helmet>
-        <title>Privacy Policy - XAUUSD Chart Live | Data Protection</title>
-        <meta 
-          name="description" 
-          content="Our Privacy Policy explains how XAUUSD Chart Live collects, uses, and protects your information. Learn about your data rights and our security measures." 
-        />
-        <meta name="robots" content="index, follow" />
-      </Helmet>
+      {!isStaticPage && (
+        <Helmet>
+          <title>Privacy Policy - XAUUSD Chart Live | Data Protection</title>
+          <meta 
+            name="description" 
+            content="Our Privacy Policy explains how XAUUSD Chart Live collects, uses, and protects your information. Learn about your data rights and our security measures." 
+          />
+          <meta name="robots" content="index, follow" />
+        </Helmet>
+      )}
       
       <div className="container mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
