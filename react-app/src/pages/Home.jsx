@@ -11,12 +11,29 @@ const Home = ({ priceData }) => {
   const location = useLocation();
 
   useEffect(() => {
+    // Handle hash navigation
     if (location.hash) {
       const id = location.hash.replace('#', '');
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
+    }
+
+    // Ensure canonical URL is set correctly for homepage
+    const canonical = document.querySelector('link[rel="canonical"]');
+    const expectedUrl = 'https://xauusd-chart-live.com/';
+    
+    if (!canonical || canonical.href !== expectedUrl) {
+      const newCanonical = document.createElement('link');
+      newCanonical.rel = 'canonical';
+      newCanonical.href = expectedUrl;
+      
+      if (canonical) {
+        canonical.remove();
+      }
+      
+      document.head.appendChild(newCanonical);
     }
   }, [location]);
 

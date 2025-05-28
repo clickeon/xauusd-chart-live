@@ -3,6 +3,10 @@
   command = "npm install && npm run build"
   publish = "react-app/dist"
 
+# Enable prerendering for better SEO
+[build.environment]
+  NODE_VERSION = "18"
+
 # Force HTTPS redirect
 [[redirects]]
   from = "http://xauusd-chart-live.com/*"

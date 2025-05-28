@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Layout from '../../components/Layout';
 
 const PrivacyPolicy = () => {
+  useEffect(() => {
+    // Ensure canonical URL is set correctly
+    const canonical = document.querySelector('link[rel="canonical"]');
+    const expectedUrl = 'https://xauusd-chart-live.com/privacy-policy';
+    
+    if (!canonical || canonical.href !== expectedUrl) {
+      const newCanonical = document.createElement('link');
+      newCanonical.rel = 'canonical';
+      newCanonical.href = expectedUrl;
+      
+      if (canonical) {
+        canonical.remove();
+      }
+      
+      document.head.appendChild(newCanonical);
+    }
+  }, []);
+
   return (
     <Layout>
       <Helmet>
