@@ -1,27 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useCanonical } from '../hooks/useCanonical';
 import Layout from '../components/Layout';
 
 const AboutUs = () => {
-  useEffect(() => {
-    // Debug: Verify canonical URL is set correctly
-    const canonical = document.querySelector('link[rel="canonical"]');
-    console.log('AboutUs canonical URL:', canonical?.href);
-    
-    // Ensure canonical URL is set even if Helmet doesn't work immediately
-    if (!canonical || canonical.href !== 'https://xauusd-chart-live.com/about-us') {
-      const newCanonical = document.createElement('link');
-      newCanonical.rel = 'canonical';
-      newCanonical.href = 'https://xauusd-chart-live.com/about-us';
-      
-      // Remove existing canonical if it exists
-      if (canonical) {
-        canonical.remove();
-      }
-      
-      document.head.appendChild(newCanonical);
-    }
-  }, []);
+  useCanonical('https://xauusd-chart-live.com/about-us');
 
   return (
     <Layout>

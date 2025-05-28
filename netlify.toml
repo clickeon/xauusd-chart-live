@@ -14,7 +14,28 @@
   status = 301
   force = true
 
-# Redirect all routes to index.html for client-side routing
+# Serve specific HTML files for each route
+[[redirects]]
+  from = "/about-us"
+  to = "/about-us.html"
+  status = 200
+
+[[redirects]]
+  from = "/disclaimer"
+  to = "/disclaimer.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy-policy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms-of-service"
+  to = "/terms-of-service.html"
+  status = 200
+
+# Redirect all other routes to index.html for client-side routing
 [[redirects]]
   from = "/*"
   to = "/index.html"

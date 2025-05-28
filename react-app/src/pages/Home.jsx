@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
+import { useCanonical } from '../hooks/useCanonical';
 import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import PriceChart from '../components/PriceChart';
@@ -9,6 +10,8 @@ import NewsSection from '../components/NewsSection';
 
 const Home = ({ priceData }) => {
   const location = useLocation();
+  
+  useCanonical('https://xauusd-chart-live.com/');
 
   useEffect(() => {
     // Handle hash navigation
@@ -18,22 +21,6 @@ const Home = ({ priceData }) => {
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
-    }
-
-    // Ensure canonical URL is set correctly for homepage
-    const canonical = document.querySelector('link[rel="canonical"]');
-    const expectedUrl = 'https://xauusd-chart-live.com/';
-    
-    if (!canonical || canonical.href !== expectedUrl) {
-      const newCanonical = document.createElement('link');
-      newCanonical.rel = 'canonical';
-      newCanonical.href = expectedUrl;
-      
-      if (canonical) {
-        canonical.remove();
-      }
-      
-      document.head.appendChild(newCanonical);
     }
   }, [location]);
 
