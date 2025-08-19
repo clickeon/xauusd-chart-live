@@ -41,6 +41,6 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' analytics.ahrefs.com www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: www.googletagmanager.com; connect-src 'self' https://xauusd-api.herokuapp.com analytics.ahrefs.com www.googletagmanager.com www.google-analytics.com;"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' analytics.ahrefs.com www.googletagmanager.com cdn.matomo.cloud; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: www.googletagmanager.com; connect-src 'self' https://xauusd-api.herokuapp.com analytics.ahrefs.com www.googletagmanager.com www.google-analytics.com pippenguin.matomo.cloud;"
     Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
     Link = "<https://xauusd-chart-live.com>; rel=\"canonical\""

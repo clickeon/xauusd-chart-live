@@ -5,6 +5,7 @@ import './index.css';
 
 // Components
 import AhrefsAnalytics from './components/AhrefsAnalytics';
+import MatomoAnalytics from './components/MatomoAnalytics';
 import SEOLinks from './components/SEOLinks';
 
 // Pages
@@ -112,6 +113,7 @@ function App() {
   return (
     <HelmetProvider>
       <AhrefsAnalytics />
+      <MatomoAnalytics />
       <div className="min-h-screen bg-navy">
         <Helmet>
           <title>XAUUSD Chart Live | Real-Time Gold Price Tracking | XAU/USD Analysis</title>
