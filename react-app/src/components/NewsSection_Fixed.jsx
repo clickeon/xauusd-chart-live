@@ -28,7 +28,7 @@ const NewsSection = () => {
       source: "Financial Times",
       date: new Date().toISOString(),
       impact: "high",
-      url: "https://lnk.brokerinspect.com/trade-gold",
+      url: "https://lnk.broker-inspect.com/trade-gold",
       category: "economic"
     },
     {
@@ -38,7 +38,7 @@ const NewsSection = () => {
       source: "Bloomberg",
       date: new Date(Date.now() - 86400000).toISOString(), // yesterday
       impact: "medium",
-      url: "https://lnk.brokerinspect.com/trade-gold",
+      url: "https://lnk.broker-inspect.com/trade-gold",
       category: "economic"
     },
     {
@@ -48,7 +48,7 @@ const NewsSection = () => {
       source: "Reuters",
       date: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
       impact: "medium",
-      url: "https://lnk.brokerinspect.com/trade-gold",
+      url: "https://lnk.broker-inspect.com/trade-gold",
       category: "market"
     },
     {
@@ -58,7 +58,7 @@ const NewsSection = () => {
       source: "Trading View",
       date: new Date(Date.now() - 259200000).toISOString(), // 3 days ago
       impact: "medium",
-      url: "https://lnk.brokerinspect.com/trade-gold",
+      url: "https://lnk.broker-inspect.com/trade-gold",
       category: "market"
     },
     {
@@ -68,7 +68,7 @@ const NewsSection = () => {
       source: "Wall Street Journal",
       date: new Date(Date.now() - 345600000).toISOString(), // 4 days ago
       impact: "high",
-      url: "https://lnk.brokerinspect.com/trade-gold",
+      url: "https://lnk.broker-inspect.com/trade-gold",
       category: "geopolitical"
     }
   ];
@@ -128,7 +128,7 @@ const NewsSection = () => {
                   source: item.source || 'Financial News',
                   date: dateStr,
                   impact: impactLevel,
-                  url: item.link || 'https://lnk.brokerinspect.com/trade-gold',
+                  url: item.link || 'https://lnk.broker-inspect.com/trade-gold',
                   category
                 };
               } catch (itemError) {
@@ -141,7 +141,7 @@ const NewsSection = () => {
                   source: "Financial News",
                   date: new Date(Date.now() - index * 86400000).toISOString(),
                   impact: "medium",
-                  url: "https://lnk.brokerinspect.com/trade-gold",
+                  url: "https://lnk.broker-inspect.com/trade-gold",
                   category: "market"
                 };
               }
@@ -330,7 +330,7 @@ const NewsSection = () => {
                             <TableCell>{item.source || "Financial News"}</TableCell>
                             <TableCell className="text-right">
                               <a
-                                href={item.url || "https://lnk.brokerinspect.com/trade-gold"}
+                                href={item.url || "https://lnk.broker-inspect.com/trade-gold"}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-gold/10 hover:bg-gold/20 text-navy"

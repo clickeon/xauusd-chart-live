@@ -342,7 +342,7 @@ const SignalIndicator = () => {
                       </div>
                       <div className="mt-6 pt-4 border-t border-gold/10">
                         <a 
-                          href="https://lnk.brokerinspect.com/trade-gold" 
+                          href="https://lnk.broker-inspect.com/trade-gold" 
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-gold hover:text-gold-dark transition-colors text-sm flex items-center"

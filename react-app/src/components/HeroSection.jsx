@@ -52,7 +52,7 @@ const HeroSection = ({ priceData }) => {
             
             <div className="mt-6">
               <a 
-                href="https://lnk.brokerinspect.com/trade-gold" 
+                href="https://lnk.broker-inspect.com/trade-gold" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white gold-gradient rounded-md shadow-lg hover:opacity-90 transition-opacity"
@@ -104,7 +104,7 @@ const HeroSection = ({ priceData }) => {
                 </div>
                 <div className="mt-6">
                   <a 
-                    href="https://lnk.brokerinspect.com/trade-gold" 
+                    href="https://lnk.broker-inspect.com/trade-gold" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full inline-flex justify-center items-center px-4 py-2 gold-gradient text-white font-medium rounded-md hover:opacity-90 transition-opacity"

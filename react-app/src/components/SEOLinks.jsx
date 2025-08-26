@@ -26,7 +26,7 @@ const SEOLinks = () => {
             <li><a href="/privacy-policy" title="Privacy Policy" className="hover:text-gold transition-colors">Privacy Policy</a></li>
             <li><a href="/terms-of-service" title="Terms of Service" className="hover:text-gold transition-colors">Terms of Service</a></li>
             <li><a href="/disclaimer" title="Legal Disclaimer" className="hover:text-gold transition-colors">Disclaimer</a></li>
-            <li><a href="https://lnk.brokerinspect.com/trade-gold" rel="noopener noreferrer" target="_blank" title="Trade Gold Online" className="hover:text-gold transition-colors">Trade Gold</a></li>
+            <li><a href="https://lnk.broker-inspect.com/trade-gold" rel="noopener noreferrer" target="_blank" title="Trade Gold Online" className="hover:text-gold transition-colors">Trade Gold</a></li>
             <li><a href="https://www.investing.com/commodities/gold" rel="noopener noreferrer" target="_blank" title="Gold on Investing.com" className="hover:text-gold transition-colors">Investing.com Gold</a></li>
             <li><a href="https://www.kitco.com/charts/livegold.html" rel="noopener noreferrer" target="_blank" title="Kitco Gold Charts" className="hover:text-gold transition-colors">Kitco Charts</a></li>
             <li><a href="https://www.reuters.com/markets/commodities/gold/" rel="noopener noreferrer" target="_blank" title="Reuters Gold News" className="hover:text-gold transition-colors">Reuters Gold</a></li>

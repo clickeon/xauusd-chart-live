@@ -46,14 +46,14 @@ const Navbar = () => {
             <Link to="/#signals" className="text-navy-light hover:text-gold transition-colors" title="Gold Trading Signals">Trading Signals</Link>
             <Link to="/#news" className="text-navy-light hover:text-gold transition-colors" title="Gold Market News">Gold News</Link>
             <Link to="/#analysis" className="text-navy-light hover:text-gold transition-colors" title="Gold Market Analysis">Market Analysis</Link>
-            <a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-navy-light hover:text-gold transition-colors" title="Trade Gold Online">Trade Gold</a>
+            <a href="https://lnk.broker-inspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-navy-light hover:text-gold transition-colors" title="Trade Gold Online">Trade Gold</a>
             <Link to="/about-us" className="text-navy-light hover:text-gold transition-colors" title="About XAUUSD Chart Live">About Us</Link>
           </nav>
           
           <div className="flex items-center space-x-4">
             <Button 
               variant="gold" 
-              onClick={() => window.open('https://lnk.brokerinspect.com/trade-gold', '_blank')}
+              onClick={() => window.open('https://lnk.broker-inspect.com/trade-gold', '_blank')}
             >
               Trade Now
             </Button>

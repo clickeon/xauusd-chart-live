@@ -64,9 +64,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Resources</h3>
             <ul className="space-y-2 text-gray-300">
-              <li><a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" title="Gold Trading Strategies">Trading Strategies</a></li>
-              <li><a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" title="Gold Trading Guide">Gold Trading Guide</a></li>
-              <li><a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" title="Trade Gold Now">Trade Gold Now</a></li>
+              <li><a href="https://lnk.broker-inspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" title="Gold Trading Strategies">Trading Strategies</a></li>
+              <li><a href="https://lnk.broker-inspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" title="Gold Trading Guide">Gold Trading Guide</a></li>
+              <li><a href="https://lnk.broker-inspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors" title="Trade Gold Now">Trade Gold Now</a></li>
               <li><a href="/analysis" className="hover:text-gold transition-colors" title="Gold Market Analysis">Market Analysis</a></li>
               <li><a href="/tools" className="hover:text-gold transition-colors" title="Gold Trading Tools">Trading Tools</a></li>
             </ul>

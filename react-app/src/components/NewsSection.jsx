@@ -317,7 +317,7 @@ const NewsSection = () => {
                 <CardContent className="p-4">
                   <h4 className="font-medium text-navy mb-2">Trading Resources</h4>
                   <ul className="space-y-2 text-sm">
-                    <li><a href="https://lnk.brokerinspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Trade Gold Online</a></li>
+                    <li><a href="https://lnk.broker-inspect.com/trade-gold" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Trade Gold Online</a></li>
                     <li><a href="https://www.babypips.com/learn/forex/gold-trading" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">BabyPips Gold Trading Guide</a></li>
                     <li><a href="https://www.dailyfx.com/gold-price" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">DailyFX Gold Trading</a></li>
                   </ul>
@@ -369,7 +369,7 @@ const NewsSection = () => {
               
               <div className="mt-6 flex justify-end">
                 <a 
-                  href={selectedNews.url || "https://lnk.brokerinspect.com/trade-gold"} 
+                  href={selectedNews.url || "https://lnk.broker-inspect.com/trade-gold"} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center px-4 py-2 bg-navy text-white rounded hover:bg-navy-dark transition-colors"
