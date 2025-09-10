@@ -6,6 +6,7 @@ import HeroSection from '../components/HeroSection';
 import PriceChart from '../components/PriceChart';
 import SignalIndicator from '../components/SignalIndicator';
 import NewsSection from '../components/NewsSection';
+import ApiDebugger from '../components/ApiDebugger';
 
 const Home = ({ priceData }) => {
   const location = useLocation();
@@ -91,6 +92,9 @@ const Home = ({ priceData }) => {
           </div>
         </section>
       </main>
+      
+      {/* API Debugger - only shows in development or when there are errors */}
+      <ApiDebugger />
     </Layout>
   );
 };

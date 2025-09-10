@@ -55,7 +55,7 @@ function App() {
           // Handle empty but successful response
           setPriceData(prev => ({
             ...prev,
-            price: 2300.00, // Fallback price
+            price: 2675.00, // Updated fallback price
             change: 0,
             changePercent: 0,
             timestamp: new Date().toISOString(),
@@ -67,7 +67,7 @@ function App() {
         console.error('Failed to fetch gold price:', error);
         setPriceData(prev => ({ 
           ...prev, 
-          price: 2300.00,
+          price: 2675.00, // Updated fallback price
           change: 0,
           changePercent: 0,
           timestamp: new Date().toISOString(),
@@ -100,7 +100,7 @@ function App() {
     } catch (error) {
       console.error('Critical error in useEffect:', error);
       setPriceData({
-        price: 2300.00,
+        price: 2675.00, // Updated fallback price
         change: 0,
         changePercent: 0,
         timestamp: new Date().toISOString(),

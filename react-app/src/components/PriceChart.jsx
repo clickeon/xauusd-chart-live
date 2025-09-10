@@ -40,8 +40,37 @@ const PriceChart = () => {
   useEffect(() => {
     const fetchHistoricalPrices = async () => {
       setLoading(true);
+      
       try {
-        // Find the current time range in days
+        // Try to get real historical data from the API first
+        console.log(`Fetching historical data for period: ${activeRange}`);
+        const historicalData = await goldApi.getHistoricalPrices(activeRange);
+        
+        if (historicalData && historicalData.prices && historicalData.prices.length > 0) {
+          // Transform API data to chart format
+          const chartData = historicalData.prices.map(item => ({
+            date: new Date(item.date).toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric',
+              ...(activeRange === '1Y' && { year: '2-digit' })
+            }),
+            fullDate: item.date,
+            price: parseFloat(item.price),
+            volume: item.volume || Math.floor(Math.random() * 20000) + 5000
+          }));
+          
+          setChartData(chartData);
+          setError(null);
+          console.log(`Successfully loaded ${chartData.length} data points from API`);
+          setLoading(false);
+          return; // Exit early if API data is successful
+        }
+      } catch (apiError) {
+        console.warn('Error fetching real historical data, will generate fallback:', apiError);
+      }
+      
+      // If we reach here, either API failed or returned no data - generate fallback
+      try {
         const days = timeRanges.find(r => r.label === activeRange)?.days || 30;
         const now = new Date();
         const testData = [];
@@ -50,7 +79,7 @@ const PriceChart = () => {
         if (days <= 1) {
           // 1D view - hourly format
           const hours = [0, 3, 6, 9, 12, 15, 18, 21];
-          const basePrice = 3438.00;
+          const basePrice = 2675.00;
           
           hours.forEach(hour => {
             const pointDate = new Date(now);
@@ -81,7 +110,7 @@ const PriceChart = () => {
           // 1W view - day with time format (e.g., "Mon 3PM")
           const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
           const hoursPerDay = [9, 15]; // 9AM and 3PM each day
-          const basePrice = 3438.00;
+          const basePrice = 2675.00;
           
           // Create data points for the past week
           for (let d = 6; d >= 0; d--) {
@@ -110,7 +139,7 @@ const PriceChart = () => {
           }
         } else if (days <= 30) {
           // 1M view - day format (e.g., "Apr 15")
-          const basePrice = 3438.00;
+          const basePrice = 2675.00;
           const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
           
           // Create 10 data points for the past month
@@ -135,7 +164,7 @@ const PriceChart = () => {
           }
         } else {
           // Longer periods - month/year format
-          const basePrice = 3400.00;
+          const basePrice = 2650.00;
           const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
           
           // Determine how many months to go back based on the days
@@ -170,8 +199,8 @@ const PriceChart = () => {
         
         setChartData(testData);
         setError(null);
-      } catch (error) {
-        console.error("Error loading chart data:", error);
+      } catch (fallbackError) {
+        console.error("Error generating fallback chart data:", fallbackError);
         setChartData([]);
         setError("Failed to load price history");
       } finally {

@@ -7,12 +7,18 @@ const API_BASE_URL = process.env.NODE_ENV === 'production'
 
 // Fallback data generator functions
 const generateFallbackGoldPrice = () => {
-  const basePrice = 3438.50;
-  const variation = (Math.random() - 0.5) * 10;
+  // Use more realistic current gold price range (around $2650-$2700)
+  const basePrice = 2675.00;  // Updated to realistic current price
+  const variation = (Math.random() - 0.5) * 20; // Increased variation for realism
+  const currentPrice = basePrice + variation;
+  const dailyChange = (Math.random() - 0.5) * 40; // Daily change can be +/- $20
+  
   return {
-    price: parseFloat((basePrice + variation).toFixed(2)),
-    change: parseFloat((variation).toFixed(2)),
-    change_percent: parseFloat((variation / basePrice * 100).toFixed(2))
+    price: parseFloat(currentPrice.toFixed(2)),
+    change: parseFloat(dailyChange.toFixed(2)),
+    change_percent: parseFloat((dailyChange / basePrice * 100).toFixed(2)),
+    timestamp: new Date().toISOString(),
+    source: 'Fallback Data (API Unavailable)'
   };
 };
 
@@ -31,7 +37,7 @@ const generateFallbackHistoricalPrices = (period = '1M') => {
   const interval = intervals[period] || intervals['1M'];
   
   const now = new Date();
-  const basePrice = 3438.00;
+  const basePrice = 2675.00;  // Updated to realistic current price
   const prices = [];
   
   for (let i = 0; i < interval.count; i++) {
@@ -129,9 +135,11 @@ export const goldApi = {
       console.warn('Error generating fallback gold price data:', error);
       // Return minimal fallback data if even the generator fails
       return {
-        price: 3438.50,
-        change: 2.75,
-        change_percent: 0.08
+        price: 2675.00,  // Updated to realistic current price
+        change: 5.25,
+        change_percent: 0.20,
+        timestamp: new Date().toISOString(),
+        source: 'Emergency Fallback Data'
       };
     }
   },
