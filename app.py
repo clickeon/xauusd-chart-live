@@ -761,17 +761,30 @@ def robots():
     return app.send_static_file('robots.txt')
 
 # Serve React static files
-@app.route('/react/<path:path>')
-def serve_react(path):
-    # This will be used after we've built the React app
-    react_build_dir = os.path.join(os.path.dirname(__file__), 'react-build')
-    return send_from_directory(react_build_dir, path)
+@app.route('/assets/<path:path>')
+def serve_assets(path):
+    react_build_dir = os.path.join(os.path.dirname(__file__), 'react-app', 'dist')
+    return send_from_directory(os.path.join(react_build_dir, 'assets'), path)
 
-# Catch-all route for React router
-@app.route('/react/')
-@app.route('/react')
-def serve_react_index():
-    react_build_dir = os.path.join(os.path.dirname(__file__), 'react-build')
+@app.route('/images/<path:path>')
+def serve_images(path):
+    react_build_dir = os.path.join(os.path.dirname(__file__), 'react-app', 'dist')
+    return send_from_directory(os.path.join(react_build_dir, 'images'), path)
+
+@app.route('/fonts/<path:path>')
+def serve_fonts(path):
+    react_build_dir = os.path.join(os.path.dirname(__file__), 'react-app', 'dist')
+    return send_from_directory(os.path.join(react_build_dir, 'fonts'), path)
+
+# Catch-all route for React router (must be last)
+@app.route('/')
+@app.route('/<path:path>')
+def serve_react_app(path=''):
+    # Don't serve React for API routes
+    if path.startswith('api/'):
+        return {'error': 'API endpoint not found'}, 404
+    
+    react_build_dir = os.path.join(os.path.dirname(__file__), 'react-app', 'dist')
     return send_from_directory(react_build_dir, 'index.html')
 
 if __name__ == '__main__':

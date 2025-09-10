@@ -1,0 +1,10 @@
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "python app.py",
+    "healthcheckPath": "/api/gold/price"
+  }
+}
+

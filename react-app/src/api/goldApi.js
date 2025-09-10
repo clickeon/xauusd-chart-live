@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Base URL for the API - configured to work with both development and production
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? (import.meta.env.VITE_API_URL || 'https://xauusd-api.herokuapp.com')
+  ? (import.meta.env.VITE_API_URL || 'https://your-backend-url.railway.app')
   : 'http://localhost:8080';
 
 // Fallback data generator functions
@@ -113,35 +113,141 @@ export const goldApi = {
    * @returns {Promise} Gold price data
    */
   getCurrentPrice: async () => {
+    // Try multiple free APIs that work directly from frontend
+    
+    // Method 1: Try Metals API (free tier)
     try {
-      // Try to get real data from the backend API first
+      console.log('Trying Metals API...');
+      const response = await fetch('https://api.metals.live/v1/spot/gold', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.price) {
+          console.log('✅ Metals API successful:', data.price);
+          return {
+            price: parseFloat(data.price),
+            change: data.change ? parseFloat(data.change) : null,
+            change_percent: data.change_percent ? parseFloat(data.change_percent) : null,
+            timestamp: new Date().toISOString(),
+            source: 'Metals.live API'
+          };
+        }
+      }
+    } catch (error) {
+      console.warn('Metals API failed:', error.message);
+    }
+    
+    // Method 2: Try Financial Modeling Prep (free tier)
+    try {
+      console.log('Trying Financial Modeling Prep API...');
+      const response = await fetch('https://financialmodelingprep.com/api/v3/quote/GCUSD?apikey=demo', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.length > 0 && data[0].price) {
+          const goldData = data[0];
+          console.log('✅ Financial Modeling Prep successful:', goldData.price);
+          return {
+            price: parseFloat(goldData.price),
+            change: goldData.change ? parseFloat(goldData.change) : null,
+            change_percent: goldData.changesPercentage ? parseFloat(goldData.changesPercentage) : null,
+            timestamp: new Date().toISOString(),
+            source: 'Financial Modeling Prep'
+          };
+        }
+      }
+    } catch (error) {
+      console.warn('Financial Modeling Prep failed:', error.message);
+    }
+    
+    // Method 3: Try Alpha Vantage (free tier)
+    try {
+      console.log('Trying Alpha Vantage API...');
+      // Using demo key - you can get a free key at https://www.alphavantage.co/support/#api-key
+      const response = await fetch('https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=XAU&to_currency=USD&apikey=demo', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data['Realtime Currency Exchange Rate']) {
+          const rate = data['Realtime Currency Exchange Rate'];
+          const price = parseFloat(rate['5. Exchange Rate']);
+          console.log('✅ Alpha Vantage successful:', price);
+          return {
+            price: price,
+            change: null, // Alpha Vantage doesn't provide change in this endpoint
+            change_percent: null,
+            timestamp: rate['6. Last Refreshed'] || new Date().toISOString(),
+            source: 'Alpha Vantage'
+          };
+        }
+      }
+    } catch (error) {
+      console.warn('Alpha Vantage failed:', error.message);
+    }
+    
+    // Method 4: Try CoinGecko (they have some precious metals data)
+    try {
+      console.log('Trying CoinGecko API...');
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=gold&vs_currencies=usd&include_24hr_change=true', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.gold && data.gold.usd) {
+          console.log('✅ CoinGecko successful:', data.gold.usd);
+          return {
+            price: parseFloat(data.gold.usd),
+            change: null,
+            change_percent: data.gold.usd_24h_change ? parseFloat(data.gold.usd_24h_change) : null,
+            timestamp: new Date().toISOString(),
+            source: 'CoinGecko'
+          };
+        }
+      }
+    } catch (error) {
+      console.warn('CoinGecko failed:', error.message);
+    }
+    
+    // Method 5: Try backend API if available (your original Flask backend)
+    try {
+      console.log('Trying backend API...');
       const response = await apiClient.get('/api/gold/price');
       if (response.data && response.data.price) {
+        console.log('✅ Backend API successful:', response.data.price);
         return {
           price: parseFloat(response.data.price),
           change: response.data.change ? parseFloat(response.data.change) : null,
           change_percent: response.data.change_percent ? parseFloat(response.data.change_percent) : null,
-          timestamp: response.data.timestamp
+          timestamp: response.data.timestamp,
+          source: response.data.source || 'Backend API'
         };
       }
     } catch (error) {
-      console.warn('Error fetching live gold price, falling back to generated data:', error);
+      console.warn('Backend API failed:', error.message);
     }
     
-    // Fallback to generated data if API fails
-    try {
-      return generateFallbackGoldPrice();
-    } catch (error) {
-      console.warn('Error generating fallback gold price data:', error);
-      // Return minimal fallback data if even the generator fails
-      return {
-        price: 2675.00,  // Updated to realistic current price
-        change: 5.25,
-        change_percent: 0.20,
-        timestamp: new Date().toISOString(),
-        source: 'Emergency Fallback Data'
-      };
-    }
+    // If all APIs fail, use enhanced fallback with realistic current price
+    console.warn('All APIs failed, using fallback data');
+    return generateFallbackGoldPrice();
   },
 
   /**
@@ -150,33 +256,176 @@ export const goldApi = {
    * @returns {Promise} Historical price data
    */
   getHistoricalPrices: async (period = '1M') => {
+    // Try multiple free APIs for historical data
+    
+    // Method 1: Try Alpha Vantage for historical data
     try {
-      // Try to get real data from the backend API first
+      console.log(`Trying Alpha Vantage for historical data (${period})...`);
+      
+      // Map periods to Alpha Vantage intervals
+      let interval = 'daily';
+      let outputsize = 'compact'; // last 100 data points
+      
+      if (period === '1D') {
+        interval = '60min';
+        outputsize = 'compact';
+      } else if (period === '1W') {
+        interval = 'daily';
+        outputsize = 'compact';
+      } else if (['3M', '6M', '1Y'].includes(period)) {
+        outputsize = 'full'; // up to 20 years of data
+      }
+      
+      const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_${interval.toUpperCase()}&symbol=GLD&apikey=demo&outputsize=${outputsize}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        const timeSeriesKey = Object.keys(data).find(key => key.includes('Time Series'));
+        
+        if (timeSeriesKey && data[timeSeriesKey]) {
+          const timeSeries = data[timeSeriesKey];
+          const prices = [];
+          
+          // Convert Alpha Vantage data to our format
+          Object.entries(timeSeries).forEach(([date, values]) => {
+            prices.push({
+              date: date,
+              price: parseFloat(values['4. close']) * 31.1035, // Convert GLD ETF to gold price approximation
+              volume: parseInt(values['5. volume']) || 0,
+              high: parseFloat(values['2. high']) * 31.1035,
+              low: parseFloat(values['3. low']) * 31.1035,
+              open: parseFloat(values['1. open']) * 31.1035
+            });
+          });
+          
+          // Sort by date and limit based on period
+          prices.sort((a, b) => new Date(a.date) - new Date(b.date));
+          
+          // Limit data points based on period
+          const periodLimits = {
+            '1D': 24,
+            '1W': 7,
+            '1M': 30,
+            '3M': 90,
+            '6M': 180,
+            '1Y': 365
+          };
+          
+          const limitedPrices = prices.slice(-periodLimits[period] || 30);
+          
+          if (limitedPrices.length > 0) {
+            console.log(`✅ Alpha Vantage historical data successful: ${limitedPrices.length} points`);
+            return {
+              prices: limitedPrices,
+              period: period,
+              source: 'Alpha Vantage',
+              success: true
+            };
+          }
+        }
+      }
+    } catch (error) {
+      console.warn('Alpha Vantage historical data failed:', error.message);
+    }
+    
+    // Method 2: Try Financial Modeling Prep for historical data
+    try {
+      console.log(`Trying Financial Modeling Prep for historical data (${period})...`);
+      
+      // Calculate date range
+      const endDate = new Date();
+      const startDate = new Date();
+      
+      const periodDays = {
+        '1D': 1,
+        '1W': 7,
+        '1M': 30,
+        '3M': 90,
+        '6M': 180,
+        '1Y': 365
+      };
+      
+      startDate.setDate(startDate.getDate() - (periodDays[period] || 30));
+      
+      const fromDate = startDate.toISOString().split('T')[0];
+      const toDate = endDate.toISOString().split('T')[0];
+      
+      const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/GCUSD?from=${fromDate}&to=${toDate}&apikey=demo`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.historical && data.historical.length > 0) {
+          const prices = data.historical.map(item => ({
+            date: item.date,
+            price: parseFloat(item.close),
+            volume: parseInt(item.volume) || 0,
+            high: parseFloat(item.high),
+            low: parseFloat(item.low),
+            open: parseFloat(item.open)
+          })).reverse(); // Reverse to get chronological order
+          
+          console.log(`✅ Financial Modeling Prep historical data successful: ${prices.length} points`);
+          return {
+            prices: prices,
+            period: period,
+            source: 'Financial Modeling Prep',
+            success: true
+          };
+        }
+      }
+    } catch (error) {
+      console.warn('Financial Modeling Prep historical data failed:', error.message);
+    }
+    
+    // Method 3: Try backend API if available
+    try {
+      console.log(`Trying backend API for historical data (${period})...`);
       const response = await apiClient.get(`/api/gold/historical?period=${period}`);
       if (response.data && response.data.prices) {
+        console.log(`✅ Backend API historical data successful: ${response.data.prices.length} points`);
         return {
           prices: response.data.prices,
-          period: response.data.period || period
+          period: response.data.period || period,
+          source: response.data.source || 'Backend API',
+          success: true
         };
       }
     } catch (error) {
-      console.warn(`Error fetching historical prices for ${period}, falling back to generated data:`, error);
+      console.warn('Backend API historical data failed:', error.message);
     }
     
-    // Fallback to generated data if API fails
+    // Fallback to generated data if all APIs fail
+    console.warn(`All historical data APIs failed for ${period}, using generated data`);
     try {
-      return generateFallbackHistoricalPrices(period);
+      const fallbackData = generateFallbackHistoricalPrices(period);
+      return {
+        ...fallbackData,
+        source: 'Generated Fallback Data',
+        success: false
+      };
     } catch (error) {
       console.warn(`Error generating fallback historical prices for ${period}:`, error);
       // Return minimal fallback data if even the generator fails
       const now = new Date();
       return {
         prices: [
-          { date: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString(), price: 3400.50, volume: 12000 },
-          { date: new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000).toISOString(), price: 3420.25, volume: 14000 },
-          { date: now.toISOString(), price: 3438.50, volume: 15000 }
+          { date: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString(), price: 2650.50, volume: 12000 },
+          { date: new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000).toISOString(), price: 2670.25, volume: 14000 },
+          { date: now.toISOString(), price: 2675.50, volume: 15000 }
         ],
-        period
+        period,
+        source: 'Emergency Fallback Data',
+        success: false
       };
     }
   },

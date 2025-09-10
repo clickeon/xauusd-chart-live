@@ -1,0 +1,32 @@
+# Google Cloud App Engine deployment configuration
+runtime: python39
+
+# Serve static files from React build
+handlers:
+# Serve React static files
+- url: /static
+  static_dir: react-app/dist/assets
+  secure: always
+
+- url: /images
+  static_dir: react-app/dist/images
+  secure: always
+
+- url: /fonts
+  static_dir: react-app/dist/fonts
+  secure: always
+
+# API routes
+- url: /api/.*
+  script: auto
+  secure: always
+
+# Serve React app for all other routes
+- url: /.*
+  static_files: react-app/dist/index.html
+  upload: react-app/dist/index.html
+  secure: always
+
+# Environment variables
+env_variables:
+  FLASK_ENV: production

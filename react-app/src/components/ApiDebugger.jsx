@@ -15,29 +15,42 @@ const ApiDebugger = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Only show in development or if there's an error
+    // Always show in production if API is failing, or in development
     const isDev = process.env.NODE_ENV === 'development';
     const hasError = debugInfo.errors.length > 0;
-    setIsVisible(isDev || hasError);
-  }, [debugInfo.errors]);
+    const usingFallback = debugInfo.currentPrice?.source?.includes('Fallback') || 
+                         debugInfo.currentPrice?.source?.includes('Emergency');
+    setIsVisible(isDev || hasError || usingFallback);
+  }, [debugInfo.errors, debugInfo.currentPrice]);
 
   const testApi = async () => {
     const errors = [];
     const timestamp = new Date().toISOString();
+    const apiUrl = process.env.NODE_ENV === 'production' 
+      ? (import.meta.env.VITE_API_URL || 'https://xauusd-api.herokuapp.com')
+      : 'http://localhost:8080';
 
     try {
       // Test current price
       console.log('Testing current price API...');
       const priceData = await goldApi.getCurrentPrice();
       
+      // Test if we can reach the API directly
+      try {
+        const directTest = await fetch(`${apiUrl}/api/gold/price`);
+        if (!directTest.ok) {
+          errors.push(`Direct API test failed: ${directTest.status} ${directTest.statusText}`);
+        }
+      } catch (fetchError) {
+        errors.push(`Cannot reach API: ${fetchError.message}`);
+      }
+      
       // Test historical data
       console.log('Testing historical data API...');
       const historicalData = await goldApi.getHistoricalPrices('1M');
 
       setDebugInfo({
-        apiUrl: process.env.NODE_ENV === 'production' 
-          ? (import.meta.env.VITE_API_URL || 'https://xauusd-api.herokuapp.com')
-          : 'http://localhost:8080',
+        apiUrl: apiUrl,
         environment: process.env.NODE_ENV,
         currentPrice: priceData,
         historicalData: historicalData,
@@ -49,6 +62,8 @@ const ApiDebugger = () => {
       errors.push(`API Test Error: ${error.message}`);
       setDebugInfo(prev => ({
         ...prev,
+        apiUrl: apiUrl,
+        environment: process.env.NODE_ENV,
         errors: errors,
         lastUpdate: timestamp
       }));
