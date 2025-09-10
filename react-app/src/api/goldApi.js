@@ -7,18 +7,18 @@ const API_BASE_URL = process.env.NODE_ENV === 'production'
 
 // Fallback data generator functions
 const generateFallbackGoldPrice = () => {
-  // Use more realistic current gold price range (around $2650-$2700)
-  const basePrice = 2675.00;  // Updated to realistic current price
-  const variation = (Math.random() - 0.5) * 20; // Increased variation for realism
+  // Use hardcoded price as requested: $3,656.69
+  const basePrice = 3656.69;  // Hardcoded price as requested
+  const variation = (Math.random() - 0.5) * 10; // Small variation for realism
   const currentPrice = basePrice + variation;
-  const dailyChange = (Math.random() - 0.5) * 40; // Daily change can be +/- $20
+  const dailyChange = (Math.random() - 0.5) * 60; // Daily change can be +/- $30
   
   return {
     price: parseFloat(currentPrice.toFixed(2)),
     change: parseFloat(dailyChange.toFixed(2)),
     change_percent: parseFloat((dailyChange / basePrice * 100).toFixed(2)),
     timestamp: new Date().toISOString(),
-    source: 'Fallback Data (API Unavailable)'
+    source: 'Hardcoded Price ($3,656.69 base)'
   };
 };
 
@@ -37,7 +37,7 @@ const generateFallbackHistoricalPrices = (period = '1M') => {
   const interval = intervals[period] || intervals['1M'];
   
   const now = new Date();
-  const basePrice = 2675.00;  // Updated to realistic current price
+  const basePrice = 3656.69;  // Updated to match hardcoded price
   const prices = [];
   
   for (let i = 0; i < interval.count; i++) {
@@ -419,9 +419,9 @@ export const goldApi = {
       const now = new Date();
       return {
         prices: [
-          { date: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString(), price: 2650.50, volume: 12000 },
-          { date: new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000).toISOString(), price: 2670.25, volume: 14000 },
-          { date: now.toISOString(), price: 2675.50, volume: 15000 }
+          { date: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString(), price: 3630.50, volume: 12000 },
+          { date: new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000).toISOString(), price: 3645.25, volume: 14000 },
+          { date: now.toISOString(), price: 3656.69, volume: 15000 }
         ],
         period,
         source: 'Emergency Fallback Data',
