@@ -3,6 +3,9 @@ requests==2.31.0
 flask-cors==4.0.0
 gunicorn==20.1.0
 python-dotenv==1.0.0
-numpy==1.24.3
-pandas==2.0.0
-yfinance==0.2.55
+numpy>=1.24.0,<2.0.0
+pandas>=2.0.0,<3.0.0
+yfinance>=0.2.50
+beautifulsoup4>=4.11.0
+lxml>=4.6.0
+html5lib>=1.1

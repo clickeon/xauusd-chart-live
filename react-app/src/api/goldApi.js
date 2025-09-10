@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Base URL for the API - configured to work with both development and production
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? '' 
+  ? (import.meta.env.VITE_API_URL || 'https://xauusd-api.herokuapp.com')
   : 'http://localhost:8080';
 
 // Fallback data generator functions
@@ -305,7 +305,7 @@ export const goldApi = {
   tryLegacyEndpoint: async (endpoint) => {
     try {
       // Use old endpoint format without /api prefix
-      const response = await axios.get(`http://localhost:8080/${endpoint}`);
+      const response = await axios.get(`${API_BASE_URL}/${endpoint}`);
       return response.data;
     } catch (error) {
       console.error(`Error fetching from legacy endpoint ${endpoint}:`, error);
