@@ -108,7 +108,22 @@ export const goldApi = {
    */
   getCurrentPrice: async () => {
     try {
-      // Always use fallback data since the API is not working
+      // Try to get real data from the backend API first
+      const response = await apiClient.get('/api/gold/price');
+      if (response.data && response.data.price) {
+        return {
+          price: parseFloat(response.data.price),
+          change: response.data.change ? parseFloat(response.data.change) : null,
+          change_percent: response.data.change_percent ? parseFloat(response.data.change_percent) : null,
+          timestamp: response.data.timestamp
+        };
+      }
+    } catch (error) {
+      console.warn('Error fetching live gold price, falling back to generated data:', error);
+    }
+    
+    // Fallback to generated data if API fails
+    try {
       return generateFallbackGoldPrice();
     } catch (error) {
       console.warn('Error generating fallback gold price data:', error);
@@ -128,7 +143,20 @@ export const goldApi = {
    */
   getHistoricalPrices: async (period = '1M') => {
     try {
-      // Always use fallback data since the API is not working
+      // Try to get real data from the backend API first
+      const response = await apiClient.get(`/api/gold/historical?period=${period}`);
+      if (response.data && response.data.prices) {
+        return {
+          prices: response.data.prices,
+          period: response.data.period || period
+        };
+      }
+    } catch (error) {
+      console.warn(`Error fetching historical prices for ${period}, falling back to generated data:`, error);
+    }
+    
+    // Fallback to generated data if API fails
+    try {
       return generateFallbackHistoricalPrices(period);
     } catch (error) {
       console.warn(`Error generating fallback historical prices for ${period}:`, error);

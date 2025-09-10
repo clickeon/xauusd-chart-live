@@ -12,6 +12,9 @@ import time
 from functools import lru_cache
 import pandas as pd
 
+# Import our new gold price service
+from gold_api_service import gold_service
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -343,99 +346,91 @@ def generate_fallback_prices():
 
 @app.route('/get_historical_prices')
 @app.route('/api/historical_prices')
+@app.route('/api/gold/historical')
 def historical_prices():
     try:
-        # Get period parameter for different time ranges (1D, 1W, 1M, 3M, 1Y, 5Y)
+        # Get period parameter for different time ranges (1D, 1W, 1M, 3M, 6M, 1Y)
         period = request.args.get('period', '1M')
         
-        # Map periods to days for our API
-        period_days = {
-            '1D': 1,
-            '1W': 7,
-            '1M': 30,
-            '3M': 90,
-            '6M': 180,
-            '1Y': 365,
-            '5Y': 1825
-        }
+        # Use the new gold service
+        historical_data = gold_service.get_historical_prices(period)
         
-        # Default to 30 days if period not recognized
-        days = period_days.get(period, 30)
-        
-        # If we have cached data less than 5 minutes old for requested period, return it
-        cache_key = f"{period}_prices"
-        if cache_key in historical_cache and historical_cache[cache_key] and \
-           datetime.now() - historical_cache.get(f"{period}_timestamp", datetime.min) < historical_cache['cache_duration']:
-            print(f"Returning cached historical prices for {period}")
-            return jsonify(historical_cache[cache_key])
-        
-        prices = get_historical_gold_prices(days=days)
-        
-        # Update cache for this period
-        historical_cache[cache_key] = prices
-        historical_cache[f"{period}_timestamp"] = datetime.now()
-        
-        return jsonify(prices)
+        return jsonify(historical_data)
     except Exception as e:
         print(f"Error in historical prices endpoint: {e}")
-        # Generate fallback prices if API fails
-        period = request.args.get('period', '1M')
-        days = period_days.get(period, 30)
-        fallback_prices = generate_fallback_prices(days)  # Generate prices for requested period
-        return jsonify({'prices': fallback_prices})
+        traceback.print_exc()
+        # Return error response
+        return jsonify({
+            'error': True,
+            'message': f'Error retrieving historical prices: {str(e)}',
+            'prices': [],
+            'period': period
+        })
 
 @app.route('/api/market_stats')
+@app.route('/api/gold/stats')
 def get_market_stats():
     try:
-        # Get the current gold price to make the stats realistic
-        price, change, change_percent = _get_gold_price_from_api()
-        price = float(price)
+        # Use the new gold service
+        stats_data = gold_service.get_market_stats()
         
-        # Calculate realistic values based on current price
-        day_low = round(price * 0.995, 2)  # 0.5% below current
-        day_high = round(price * 1.005, 2)  # 0.5% above current
-        week_52_low = round(price * 0.85, 2)  # 15% below current
-        week_52_high = round(price * 1.05, 2)  # 5% above current
-        open_price = round(price - (change * 0.8), 2)  # Slightly different from daily change
-        prev_close = round(price - change, 2)  # Previous day's close
+        # Format response to match expected structure
+        response = {
+            "day_range": stats_data.get('day_range', {"low": 2640, "high": 2660}),
+            "week_range": stats_data.get('week_range', {"low": 2620, "high": 2680}),
+            "year_range": stats_data.get('year_range', {"low": 1800, "high": 2700}),
+            "current_price": stats_data.get('current_price', 2650),
+            "source": stats_data.get('source', 'Unknown'),
+            "success": stats_data.get('success', True)
+        }
         
-        return jsonify({
-            "day_range": {"low": day_low, "high": day_high},
-            "week_52_range": {"low": week_52_low, "high": week_52_high},
-            "open": open_price,
-            "prev_close": prev_close
-        })
+        # Legacy format support
+        response["week_52_range"] = response["year_range"]
+        
+        return jsonify(response)
     except Exception as e:
         print(f"Error in market stats: {e}")
+        traceback.print_exc()
         # Fallback values if API fails
         return jsonify({
-            "day_range": {"low": 2295, "high": 2306},
-            "week_52_range": {"low": 1985, "high": 2435},
-            "open": 2298.12,
-            "prev_close": 2289.70
+            "day_range": {"low": 2640, "high": 2660},
+            "week_range": {"low": 2620, "high": 2680},
+            "week_52_range": {"low": 1800, "high": 2700},
+            "year_range": {"low": 1800, "high": 2700},
+            "current_price": 2650,
+            "source": "Fallback Data",
+            "success": False
         })
 
 @app.route('/get_gold_price')
 @app.route('/api/gold_price')
+@app.route('/api/gold/price')
 def gold_price():
     try:
-        price, change, change_percent = get_gold_price()
+        # Use the new gold service
+        price_data = gold_service.get_current_price()
         
         response = {
-            'price': price,
-            'change': change,
-            'change_percent': change_percent,
-            'timestamp': datetime.now().isoformat(),
+            'price': price_data['price'],
+            'change': price_data.get('change'),
+            'change_percent': price_data.get('change_percent'),
+            'timestamp': price_data['timestamp'],
+            'source': price_data.get('source', 'Unknown'),
+            'success': price_data.get('success', True),
             'formatted': {
-                'price': f"{float(price):.2f}",
-                'change': f"{float(change):.2f}" if change else "0.00",
-                'percent': f"{float(change_percent):.2f}" if change_percent else "0.00"
+                'price': f"{float(price_data['price']):.2f}",
+                'change': f"{float(price_data.get('change', 0)):.2f}",
+                'percent': f"{float(price_data.get('change_percent', 0)):.2f}"
             }
         }
+        
+        if not price_data.get('success', True):
+            response['message'] = price_data.get('message', 'Using fallback data')
         
         return jsonify(response)
     except Exception as e:
         print(f"Error in gold price endpoint: {e}")
+        traceback.print_exc()
         return jsonify({'error': True, 'message': 'Error retrieving gold price'})
 
 @app.route('/get_news')

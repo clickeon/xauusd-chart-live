@@ -4,7 +4,7 @@
 XAUUSD Chart Live is a professional, SEO-optimized gold price tracking web application with real-time market data, interactive charts, and trading signals. It's designed to provide users with a comprehensive gold trading toolkit that includes price visualization, technical analysis, and market insights.
 
 ## Features
-- **Real-time Gold Price Tracking**: Up-to-date XAUUSD market prices
+- **Live Gold Price Tracking**: Real-time XAUUSD market prices using Yahoo Finance API
 - **Interactive Price Charts**: Multiple timeframes (1D, 1W, 1M, 3M, 6M, 1Y)
 - **Chart Types**: Area and line visualization options
 - **Trading Signals**: Automated buy/sell recommendations based on technical analysis
@@ -12,6 +12,7 @@ XAUUSD Chart Live is a professional, SEO-optimized gold price tracking web appli
 - **Latest Market News**: Gold-related financial news updates
 - **Responsive Design**: Optimized for all device sizes
 - **Robust Error Handling**: Fallback mechanisms for all data sources
+- **Free API Integration**: No API keys required - uses Yahoo Finance for live data
 //
 
 ## Tech Stack
@@ -47,7 +48,8 @@ XAUUSD Chart Live is a professional, SEO-optimized gold price tracking web appli
    ```
 
 4. (Optional) Configure API keys:
-   - Create a `.env` file based on `.env.example` with your API keys for enhanced functionality
+   - The application now uses Yahoo Finance API by default (no API key required)
+   - For enhanced functionality, you can add additional API keys to a `.env` file
    - Supported APIs: Alpha Vantage, FCS API (fallback data is available without keys)
 
 ### Frontend (React)
@@ -63,14 +65,23 @@ XAUUSD Chart Live is a professional, SEO-optimized gold price tracking web appli
 
 ## How to Run
 
-### Backend
+### Quick Start (Recommended)
+Use the startup script to run both servers:
+```bash
+python start_server.py
+```
+This will start both the Flask backend and React frontend automatically.
+
+### Manual Start
+
+#### Backend
 Start the Flask server:
 ```bash
 python app.py
 ```
 The server will run on http://localhost:8080
 
-### Frontend
+#### Frontend
 Start the development server:
 ```bash
 cd react-app
@@ -93,7 +104,19 @@ The application provides several API endpoints for gold price data:
 ```
 GET /api/gold/price
 ```
-Returns the current gold price, change, and percentage change.
+Returns the current live gold price, change, and percentage change from Yahoo Finance.
+
+**Response Example:**
+```json
+{
+  "price": 2650.50,
+  "change": 15.25,
+  "change_percent": 0.58,
+  "timestamp": "2025-01-10T15:30:00",
+  "source": "Yahoo Finance (GC=F)",
+  "success": true
+}
+```
 
 ### Historical Gold Prices
 ```
@@ -103,6 +126,12 @@ Parameters:
 - `period`: Time period (1D, 1W, 1M, 3M, 6M, 1Y)
 
 Returns historical price data for the specified period.
+
+### Market Statistics
+```
+GET /api/gold/stats
+```
+Returns market statistics including day range, year range, and current price.
 
 ### Trading Signals
 ```
