@@ -247,7 +247,7 @@ export const goldApi = {
     
     // If all APIs fail, use enhanced fallback with realistic current price
     console.warn('All APIs failed, using fallback data');
-    return generateFallbackGoldPrice();
+      return generateFallbackGoldPrice();
   },
 
   /**
